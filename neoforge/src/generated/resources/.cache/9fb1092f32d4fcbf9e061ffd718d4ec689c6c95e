@@ -1,0 +1,5 @@
+// 1.21.1	2025-09-15T22:23:29.3590039	Recipes
+3dbb5dd6af200d755f19294638e61ed95e04cbca data/omnicompass/advancement/recipes/tools/biome_compass.json
+295c84cfcf46fb5b320a1878dd252e6bcdf26ea3 data/omnicompass/advancement/recipes/tools/structure_compass.json
+aeb7c6f545d4b58ad46d77d0239c099fcc4cb2ff data/omnicompass/recipe/biome_compass.json
+d4823c36e4e93adfa2ac2fe716117e060012ea57 data/omnicompass/recipe/structure_compass.json

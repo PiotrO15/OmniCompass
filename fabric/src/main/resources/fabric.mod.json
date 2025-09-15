@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "omnicompass",
+  "version": "${version}",
+  "name": "OmniCompass",
+  "description": "",
+  "authors": [
+    ""
+  ],
+  "contact": {
+    "homepage": ""
+  },
+  "license": "MIT",
+  "icon": "assets/omnicompass/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "piotro15.omnicompass.fabric.OmniCompassFabric"
+    ],
+    "client": [
+      "piotro15.omnicompass.fabric.client.OmniCompassFabricClient"
+    ],
+    "jei_mod_plugin": [
+      "piotro15.omnicompass.client.compat.OmniCompassJeiPlugin"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.17.2",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "architectury": ">=13.0.8",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  },
+  "mixins": [
+    "omnicompass.mixins.json"
+  ]
+}

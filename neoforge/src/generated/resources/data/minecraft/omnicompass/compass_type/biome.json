@@ -1,0 +1,10 @@
+{
+  "entries": [
+    {
+      "type": "omnicompass:all_of",
+      "entryType": "minecraft:worldgen/biome"
+    }
+  ],
+  "needle_color": 12754274,
+  "needle_shade_color": 9860161
+}

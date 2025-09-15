@@ -1,0 +1,10 @@
+{
+  "entries": [
+    {
+      "type": "omnicompass:all_of",
+      "entryType": "minecraft:worldgen/structure"
+    }
+  ],
+  "needle_color": 11184810,
+  "needle_shade_color": 8338988
+}

@@ -1,0 +1,10 @@
+{
+  "compass_type.minecraft.biome": "Biome Compass",
+  "compass_type.minecraft.structure": "Structure Compass",
+  "gui.omnicompass.search_hint": "Search...",
+  "gui.omnicompass.title": "Select a Target",
+  "item.omnicompass.compass": "Unknown Compass",
+  "omnicompass.compass.found": "Target found!",
+  "omnicompass.compass.not_found": "No valid targets found",
+  "omnicompass.compass.scanning": "Scanning for targets..."
+}
