@@ -1,0 +1,93 @@
+# Custom Compass Data Pack
+
+Custom compasses can be added via datapacks. Each custom compass is defined as a JSON file located at:
+```
+data/<namespace>/omnicompass/compass_type/<compass_name>.json
+```
+
+<Callout variant="warning">
+  Changes to compasses will only be visible after restarting the world. The command `/reload` cannot reload the compass types.
+</Callout>
+
+## Compass Entries
+
+The `entries` field defines a list of possible compass targets.
+
+### Biome and Structure Targets
+
+Biome and structure targets can be specified using `omnicompass:biome` and `omnicompass:structure`.
+
+```json
+  {
+    "type": "omnicompass:biome",
+    "name": "minecraft:plains"
+  }
+```
+
+- `name`: ID of the biome/structure to search for.
+
+#### Conditions
+
+Each `omnicompass:biome` and `omnicompass:structure` target can have additional conditions required for it to load. This can be specified in a `conditions` list:
+
+```json
+    {
+      "type": "omnicompass:structure",
+      "name": "minecraft:shipwreck",
+      "conditions": [
+        {
+          "type": "omnicompass:advancement",
+          "name": "minecraft:adventure/bullseye"
+        }
+      ]
+    }
+```
+
+This example shows a shipwreck target that can be only selected by players with a Bullseye advancement. Players who don't meet the condition will not see the target in the compass' menu.
+
+### All of Target
+
+If you just wish to allow the players to search for any biome or structure, you can use `omnicompass:all_of`.
+
+```json
+    {
+      "type": "omnicompass:all_of",
+      "entryType": "minecraft:worldgen/biome"
+    }
+```
+
+By default, only `minecraft:worldgen/biome` and `minecraft:worldgen/structure` can be used as the `entryType`.
+
+## Needle Colors
+
+The `needle_color` and `needle_shade_color` fields are used to apply a color overlay to the the needle and its shadow. If not set, there is no color applied.
+
+`needle_shade_color` applies the tint to `layer1` of the texture, while `needle__color` applies it to `layer2`.
+
+Keep in mind that it only accepts colors in **decimal** format, which means you will need to convert a number from hexadecimal to decimal, eg. `#FF0000` to `16711680`.
+
+## Full Example
+
+The following example creates a compass that can be used to search for any biome. Additionally, if the player has the advancement Bullseye, they can also search for a Shipwreck structure. The needle and its shadow are colored too.
+```json
+{
+  "entries": [
+    {
+      "type": "omnicompass:all_of",
+      "entryType": "minecraft:worldgen/biome"
+    },
+    {
+      "type": "omnicompass:structure",
+      "name": "minecraft:shipwreck",
+      "conditions": [
+        {
+          "type": "omnicompass:advancement",
+          "name": "minecraft:adventure/bullseye"
+        }
+      ]
+    }
+  ],
+  "needle_color": 11184810,
+  "needle_shade_color": 8338988
+}
+```

@@ -1,0 +1,39 @@
+# Compass Recipes
+
+Compasses you add aren't actually new items. Instead, compass type is stored in a data component.
+
+<Callout variant="warning">
+    This means that recipes for inexistent compasses will still work and display in recipe viewers.
+</Callout>
+
+## Simple Shaped Compass Recipe
+
+Compass recipes use a `components` object to set `omnicompass:compass_type` to the right compass type.
+
+The following recipe uses a compass and planks and creates a biome compass as a result.
+```json
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "item": "minecraft:compass"
+    },
+    "S": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    " S ",
+    "SCS",
+    " S "
+  ],
+  "result": {
+    "components": {
+      "omnicompass:compass_type": "minecraft:biome"
+    },
+    "count": 1,
+    "id": "omnicompass:compass"
+  }
+}
+```

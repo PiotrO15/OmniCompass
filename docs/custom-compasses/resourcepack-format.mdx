@@ -1,0 +1,74 @@
+# Custom Compass Resource Pack
+
+The model and the name of the compass can be customized using a resource pack.
+
+## Compass Model
+
+To make compass textures easier to change, OmniCompass model loader uses two separate models located in `assets/<namespace>/models/compass/`: `<compass_name>.json` and `<compass_name>_needle.json`. This means you only need to create a single texture for the compass if you don't need to change the look of the needle. 
+
+Default biome compass' base model:
+```json
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "omnicompass:item/biome_compass_base"
+  }
+}
+```
+
+Default biome compass' needle model:
+```json
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "omnicompass:item/needle_16"
+    },
+    "overrides": [
+        { "predicate": { "angle": 0.000000 }, "model": "omnicompass:compass/needle_16" },
+        { "predicate": { "angle": 0.015625 }, "model": "omnicompass:compass/needle_17" },
+        { "predicate": { "angle": 0.046875 }, "model": "omnicompass:compass/needle_18" },
+        { "predicate": { "angle": 0.078125 }, "model": "omnicompass:compass/needle_19" },
+        { "predicate": { "angle": 0.109375 }, "model": "omnicompass:compass/needle_20" },
+        { "predicate": { "angle": 0.140625 }, "model": "omnicompass:compass/needle_21" },
+        { "predicate": { "angle": 0.171875 }, "model": "omnicompass:compass/needle_22" },
+        { "predicate": { "angle": 0.203125 }, "model": "omnicompass:compass/needle_23" },
+        { "predicate": { "angle": 0.234375 }, "model": "omnicompass:compass/needle_24" },
+        { "predicate": { "angle": 0.265625 }, "model": "omnicompass:compass/needle_25" },
+        { "predicate": { "angle": 0.296875 }, "model": "omnicompass:compass/needle_26" },
+        { "predicate": { "angle": 0.328125 }, "model": "omnicompass:compass/needle_27" },
+        { "predicate": { "angle": 0.359375 }, "model": "omnicompass:compass/needle_28" },
+        { "predicate": { "angle": 0.390625 }, "model": "omnicompass:compass/needle_29" },
+        { "predicate": { "angle": 0.421875 }, "model": "omnicompass:compass/needle_30" },
+        { "predicate": { "angle": 0.453125 }, "model": "omnicompass:compass/needle_31" },
+        { "predicate": { "angle": 0.484375 }, "model": "omnicompass:compass/needle_00" },
+        { "predicate": { "angle": 0.515625 }, "model": "omnicompass:compass/needle_01" },
+        { "predicate": { "angle": 0.546875 }, "model": "omnicompass:compass/needle_02" },
+        { "predicate": { "angle": 0.578125 }, "model": "omnicompass:compass/needle_03" },
+        { "predicate": { "angle": 0.609375 }, "model": "omnicompass:compass/needle_04" },
+        { "predicate": { "angle": 0.640625 }, "model": "omnicompass:compass/needle_05" },
+        { "predicate": { "angle": 0.671875 }, "model": "omnicompass:compass/needle_06" },
+        { "predicate": { "angle": 0.703125 }, "model": "omnicompass:compass/needle_07" },
+        { "predicate": { "angle": 0.734375 }, "model": "omnicompass:compass/needle_08" },
+        { "predicate": { "angle": 0.765625 }, "model": "omnicompass:compass/needle_09" },
+        { "predicate": { "angle": 0.796875 }, "model": "omnicompass:compass/needle_10" },
+        { "predicate": { "angle": 0.828125 }, "model": "omnicompass:compass/needle_11" },
+        { "predicate": { "angle": 0.859375 }, "model": "omnicompass:compass/needle_12" },
+        { "predicate": { "angle": 0.890625 }, "model": "omnicompass:compass/needle_13" },
+        { "predicate": { "angle": 0.921875 }, "model": "omnicompass:compass/needle_14" },
+        { "predicate": { "angle": 0.953125 }, "model": "omnicompass:compass/needle_15" },
+        { "predicate": { "angle": 0.984375 }, "model": "omnicompass:compass/needle_16" }
+    ]
+}
+```
+
+## Needle Colors
+
+You can apply a color tint to the compass's needle and its shadow using a [datapack](./datapack-format#needle-colors).
+
+## Compass Translation
+
+Each compass type requires a translation for its name, which has to be specified in `assets/<namespace>/lang/en_us.json`:
+
+```json
+"compass_type.<namespace>.<compass_name>": "Compass Name"
+```

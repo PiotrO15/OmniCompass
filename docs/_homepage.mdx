@@ -1,0 +1,41 @@
+<p align="center">
+  <Asset location="omnicompass:omnicompass_logo" width={300} height={300} />
+</p>
+
+<p align="center">
+    <a href="https://discord.gg/7Kc2NEFh8e" style={{margin: "5px"}} >
+        <img src="https://img.shields.io/discord/1344936732759560236?style=for-the-badge&logo=discord&logoColor=ffffff&color=5865F2&label=Verdant Lobby" alt="OmniCompass Discord" />
+    </a>
+    <a href="https://ko-fi.com/piotro15" style={{margin: "5px"}} >
+        <img src="https://img.shields.io/badge/Support Me-grey?style=for-the-badge&logo=ko-fi&logoColor=ffffff&labelColor=228B22" alt="OmniCompass Ko-Fi" />
+    </a>
+</p>
+
+## 📖 Introduction
+
+**OmniCompass** is a mod which adds compasses capable of finding biomes and structures. By default, it includes a Biome Compass and a Structure Compass, each able to point to any biome or structure. You can also create custom compasses using data packs.
+
+## 🧭 OmniCompass Capabilities
+
+OmniCompass data pack format allows you to create new compasses, which includes:
+- Selecting specific biomes or structures that can be found
+- Access restrictions based on player advancements
+- Custom renderers, allowing you to change the look of a compass with just a single texture
+
+If the existing system doesn’t support your use case, make sure to open an issue on Github or to join the Discord and share your suggestions!
+
+## ✨ Creating a Custom Compass
+
+### Prerequisites
+
+Creating custom compasses requires both data and resource packs. Before you begin, make sure you have:
+- Text editor with JSON highlighting, such as Visual Studio Code
+- Basic understanding of the JSON syntax
+- Basic knowledge of [data pack](https://minecraft.wiki/w/Data_pack) and [resource pack](https://minecraft.wiki/w/Resource_pack) formats
+
+### Getting Started
+
+Creating a custom compass includes the following three elements:
+1. [Compass definition](./custom-compasses/datapack-format) (data pack), which specifies your compass's behavior.
+2. [Compass assets](./custom-compasses/resourcepack-format) (resource pack): the model and the translated name of the compass.
+3. [Recipe](./custom-compasses/compass-recipes) (data pack), which will be used to obtain the compass.
