@@ -11,6 +11,8 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
@@ -24,11 +26,12 @@ import piotro15.omnicompass.common.network.CompassScreenPacket;
 import piotro15.omnicompass.common.registry.ModDataComponents;
 import piotro15.omnicompass.common.registry.ModItems;
 import piotro15.omnicompass.common.registry.ModRegistries;
+import piotro15.omnicompass.config.CommonConfig;
 import piotro15.omnicompass.util.Platform;
 
 @Mod(OmniCompass.MOD_ID)
 public final class OmniCompassNeoForge {
-    public OmniCompassNeoForge(IEventBus modEventBus) {
+    public OmniCompassNeoForge(IEventBus modEventBus, ModContainer container) {
         Platform.setup(new NeoForgePlatform());
 
         OmniCompass.init();
@@ -36,6 +39,8 @@ public final class OmniCompassNeoForge {
         modEventBus.addListener(this::registerDatapackRegistries);
         modEventBus.addListener(this::registerPayloadHandlers);
         modEventBus.addListener(this::registerCompassesInCreativeTab);
+
+        container.registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
     }
 
     @SubscribeEvent

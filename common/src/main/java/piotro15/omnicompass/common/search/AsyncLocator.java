@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.LodestoneTracker;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import piotro15.omnicompass.config.CommonConfig;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -21,11 +22,11 @@ import java.util.concurrent.CompletableFuture;
 public class AsyncLocator {
     public static void findStructure(ServerLevel level, Player player,
                                      ItemStack compassStack, HolderSet<Structure> targets,
-                                     BlockPos origin, int maxRadius) {
+                                     BlockPos origin) {
         CompletableFuture.supplyAsync(() -> {
             Pair<BlockPos, Holder<Structure>> result =
                     level.getChunkSource().getGenerator()
-                            .findNearestMapStructure(level, targets, origin, maxRadius, false);
+                            .findNearestMapStructure(level, targets, origin, CommonConfig.INSTANCE.structureSearchRange.get(), false);
 
             return result != null ? result.getFirst() : null;
         }).thenAcceptAsync(foundPos -> {
@@ -41,9 +42,9 @@ public class AsyncLocator {
 
     public static void findBiome(ServerLevel level, Player player,
                                  ItemStack compassStack, ResourceKey<Biome> targetBiome,
-                                 BlockPos origin, int searchRadius) {
+                                 BlockPos origin) {
         CompletableFuture.supplyAsync(() -> {
-            Pair<BlockPos, Holder<Biome>> pair = level.findClosestBiome3d(biome -> biome.is(targetBiome), origin, searchRadius, 32, 64);
+            Pair<BlockPos, Holder<Biome>> pair = level.findClosestBiome3d(biome -> biome.is(targetBiome), origin, CommonConfig.INSTANCE.biomeSearchRange.get(), CommonConfig.INSTANCE.horizontalResolution.get(), CommonConfig.INSTANCE.verticalResolution.get());
 
             return pair != null ? pair.getFirst() : null;
         }).thenAcceptAsync(foundPos -> {

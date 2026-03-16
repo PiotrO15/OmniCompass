@@ -1,11 +1,13 @@
 package piotro15.omnicompass.fabric;
 
+import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeConfigRegistry;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.fml.config.ModConfig;
 import piotro15.omnicompass.OmniCompass;
 import net.fabricmc.api.ModInitializer;
 import piotro15.omnicompass.common.items.compass.CompassType;
@@ -13,6 +15,7 @@ import piotro15.omnicompass.common.items.compass.targets.SingleTarget;
 import piotro15.omnicompass.common.network.CompassScreenPacket;
 import piotro15.omnicompass.common.network.CompassSelectEntryPacket;
 import piotro15.omnicompass.common.registry.ModRegistries;
+import piotro15.omnicompass.config.CommonConfig;
 import piotro15.omnicompass.util.Platform;
 
 public final class OmniCompassFabric implements ModInitializer {
@@ -21,6 +24,8 @@ public final class OmniCompassFabric implements ModInitializer {
         Platform.setup(new FabricPlatform());
 
         OmniCompass.init();
+
+        NeoForgeConfigRegistry.INSTANCE.register(OmniCompass.MOD_ID, ModConfig.Type.COMMON, CommonConfig.SPEC);
 
         PayloadTypeRegistry.playC2S().register(CompassSelectEntryPacket.TYPE, CompassSelectEntryPacket.CODEC);
         PayloadTypeRegistry.playS2C().register(CompassScreenPacket.TYPE, CompassScreenPacket.CODEC);

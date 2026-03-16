@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -15,6 +16,8 @@ import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import org.jetbrains.annotations.NotNull;
 import piotro15.omnicompass.OmniCompass;
 import piotro15.omnicompass.client.ModItemProperties;
@@ -26,8 +29,10 @@ import java.util.Map;
 @Mod(value = OmniCompass.MOD_ID, dist = Dist.CLIENT)
 @EventBusSubscriber(modid = OmniCompass.MOD_ID, value = Dist.CLIENT)
 public class NeoForgeClient {
-    public NeoForgeClient() {
+    public NeoForgeClient(ModContainer container) {
         OmniCompass.initClient();
+
+        container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
 
     @SubscribeEvent

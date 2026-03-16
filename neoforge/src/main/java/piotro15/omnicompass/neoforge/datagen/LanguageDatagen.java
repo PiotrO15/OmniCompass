@@ -21,5 +21,14 @@ public class LanguageDatagen extends LanguageProvider {
         add("omnicompass.compass.scanning", "Scanning for targets...");
         add("omnicompass.compass.found", "Target found!");
         add("omnicompass.compass.not_found", "No valid targets found");
+
+        add("omnicompass.configuration.structure_search_range", "Structure Search Range");
+        add("omnicompass.configuration.structure_search_range.tooltip", "Maximum distance (in structure spacing, varies by structure) to search for structures. Higher values may take cause the search to take longer.");
+        add("omnicompass.configuration.biome_search_range", "Biome Search Range");
+        add("omnicompass.configuration.biome_search_range.tooltip", "Maximum distance (in blocks) to search for biomes. Higher values may take cause the search to take longer.");
+        add("omnicompass.configuration.horizontal_resolution", "Horizontal Resolution");
+        add("omnicompass.configuration.horizontal_resolution.tooltip", "The horizontal resolution (in blocks) to use when searching for biomes. Lower values may cause the search to take longer, but may be more accurate.");
+        add("omnicompass.configuration.vertical_resolution", "Vertical Resolution");
+        add("omnicompass.configuration.vertical_resolution.tooltip", "The vertical resolution (in blocks) to use when searching for biomes. Lower values may cause the search to take longer, but may be more accurate.");
     }
 }

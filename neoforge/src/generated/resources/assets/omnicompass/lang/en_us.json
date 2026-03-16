@@ -6,5 +6,13 @@
   "item.omnicompass.compass": "Unknown Compass",
   "omnicompass.compass.found": "Target found!",
   "omnicompass.compass.not_found": "No valid targets found",
-  "omnicompass.compass.scanning": "Scanning for targets..."
+  "omnicompass.compass.scanning": "Scanning for targets...",
+  "omnicompass.configuration.biome_search_range": "Biome Search Range",
+  "omnicompass.configuration.biome_search_range.tooltip": "Maximum distance (in blocks) to search for biomes. Higher values may take cause the search to take longer.",
+  "omnicompass.configuration.horizontal_resolution": "Horizontal Resolution",
+  "omnicompass.configuration.horizontal_resolution.tooltip": "The horizontal resolution (in blocks) to use when searching for biomes. Lower values may cause the search to take longer, but may be more accurate.",
+  "omnicompass.configuration.structure_search_range": "Structure Search Range",
+  "omnicompass.configuration.structure_search_range.tooltip": "Maximum distance (in structure spacing, varies by structure) to search for structures. Higher values may take cause the search to take longer.",
+  "omnicompass.configuration.vertical_resolution": "Vertical Resolution",
+  "omnicompass.configuration.vertical_resolution.tooltip": "The vertical resolution (in blocks) to use when searching for biomes. Lower values may cause the search to take longer, but may be more accurate."
 }

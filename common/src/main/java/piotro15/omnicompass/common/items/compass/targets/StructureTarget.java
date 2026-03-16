@@ -94,7 +94,7 @@ public record StructureTarget(
         HolderSet<Structure> holderSet = HolderSet.direct(structureHolder);
         BlockPos origin = player.getOnPos();
 
-        AsyncLocator.findStructure(serverLevel, player, stack, holderSet, origin, 100);
+        AsyncLocator.findStructure(serverLevel, player, stack, holderSet, origin);
     }
 
     @Override

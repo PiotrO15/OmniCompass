@@ -75,7 +75,7 @@ public record BiomeTarget(
 
         SingleTarget singleTarget = compassType.getTargets(serverLevel).stream().filter(entry -> entry.entryId().equals(entryId) && entry.targetType().equals(entryType)).findFirst().orElseThrow();
 
-        AsyncLocator.findBiome(serverLevel, player, stack, ResourceKey.create(Registries.BIOME, singleTarget.entryId()), player.getOnPos(), 6400);
+        AsyncLocator.findBiome(serverLevel, player, stack, ResourceKey.create(Registries.BIOME, singleTarget.entryId()), player.getOnPos());
     }
 
     @Override
