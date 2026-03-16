@@ -6,6 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import piotro15.omnicompass.OmniCompass;
+import piotro15.omnicompass.config.CommonConfig;
 
 import java.util.List;
 import java.util.Set;
@@ -35,10 +36,10 @@ public record AllOfTarget(
     public List<SingleTarget> processTargets(ServerLevel level) {
         if (entryType.equals(Registries.BIOME.location())) {
             Set<ResourceLocation> biomes = level.registryAccess().registryOrThrow(Registries.BIOME).keySet();
-            return biomes.stream().map(biome -> (SingleTarget) new BiomeTarget(biome, List.of())).toList();
+            return biomes.stream().map(biome -> (SingleTarget) new BiomeTarget(biome, List.of())).filter(singleTarget -> !CommonConfig.INSTANCE.biomeBlacklist.get().contains(((BiomeTarget) singleTarget).name().toString())).toList();
         } else if (entryType.equals(Registries.STRUCTURE.location())) {
             Set<ResourceLocation> biomes = level.registryAccess().registryOrThrow(Registries.STRUCTURE).keySet();
-            return biomes.stream().map(structure -> (SingleTarget) new StructureTarget(structure, List.of())).toList();
+            return biomes.stream().map(structure -> (SingleTarget) new StructureTarget(structure, List.of())).filter(singleTarget -> !CommonConfig.INSTANCE.structureBlacklist.get().contains(((StructureTarget) singleTarget).name().toString())).toList();
         }
         return List.of();
     }

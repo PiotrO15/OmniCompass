@@ -30,5 +30,9 @@ public class LanguageDatagen extends LanguageProvider {
         add("omnicompass.configuration.horizontal_resolution.tooltip", "The horizontal resolution (in blocks) to use when searching for biomes. Lower values may cause the search to take longer, but may be more accurate.");
         add("omnicompass.configuration.vertical_resolution", "Vertical Resolution");
         add("omnicompass.configuration.vertical_resolution.tooltip", "The vertical resolution (in blocks) to use when searching for biomes. Lower values may cause the search to take longer, but may be more accurate.");
+        add("omnicompass.configuration.structure_blacklist", "Structure Blacklist");
+        add("omnicompass.configuration.structure_blacklist.tooltip", "A list of structures that will not be searchable using Structure Compass. This setting removes the blacklisted structures from all_of target.");
+        add("omnicompass.configuration.biome_blacklist", "Biome Blacklist");
+        add("omnicompass.configuration.biome_blacklist.tooltip", "A list of biomes that will not be searchable using Biome Compass. This setting removes the blacklisted biomes from all_of target.");
     }
 }

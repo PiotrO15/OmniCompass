@@ -3,6 +3,9 @@ package piotro15.omnicompass.config;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CommonConfig {
     public static final CommonConfig INSTANCE;
     public static final ModConfigSpec SPEC;
@@ -13,12 +16,18 @@ public class CommonConfig {
 
     public final ModConfigSpec.IntValue structureSearchRange;
 
+    public final ModConfigSpec.ConfigValue<List<? extends String>> biomeBlacklist;
+    public final ModConfigSpec.ConfigValue<List<? extends String>> structureBlacklist;
+
     private CommonConfig(ModConfigSpec.Builder builder) {
         horizontalResolution = builder.defineInRange("horizontal_resolution", 32, 1, 512);
         verticalResolution = builder.defineInRange("vertical_resolution", 64, 1, 512);
         biomeSearchRange = builder.defineInRange("biome_search_range", 6400, 1, 128000);
 
         structureSearchRange = builder.defineInRange("structure_search_range", 512, 1, 2048);
+
+        biomeBlacklist = builder.defineListAllowEmpty("biome_blacklist", ArrayList::new, () -> "", o -> true);
+        structureBlacklist = builder.defineListAllowEmpty("structure_blacklist", ArrayList::new, () -> "", o -> true);
     }
 
     static {
