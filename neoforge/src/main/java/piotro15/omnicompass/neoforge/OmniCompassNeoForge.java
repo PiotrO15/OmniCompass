@@ -1,5 +1,6 @@
 package piotro15.omnicompass.neoforge;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Registry;
@@ -13,9 +14,12 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import piotro15.omnicompass.OmniCompass;
 import net.neoforged.fml.common.Mod;
 import piotro15.omnicompass.client.screens.CompassScreen;
@@ -29,10 +33,20 @@ import piotro15.omnicompass.common.registry.ModRegistries;
 import piotro15.omnicompass.config.CommonConfig;
 import piotro15.omnicompass.util.Platform;
 
+import java.util.function.Supplier;
+
 @Mod(OmniCompass.MOD_ID)
 public final class OmniCompassNeoForge {
+    public static final DeferredRegister<MapCodec<? extends ICondition>> CONDITION_CODECS =
+            DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS, OmniCompass.MOD_ID);
+
+    public static final Supplier<MapCodec<ConfigResourceCondition>> CONFIG_RESOURCE_CONDITION =
+            CONDITION_CODECS.register("config", () -> ConfigResourceCondition.CODEC);
+
     public OmniCompassNeoForge(IEventBus modEventBus, ModContainer container) {
         Platform.setup(new NeoForgePlatform());
+
+        CONDITION_CODECS.register(modEventBus);
 
         OmniCompass.init();
 

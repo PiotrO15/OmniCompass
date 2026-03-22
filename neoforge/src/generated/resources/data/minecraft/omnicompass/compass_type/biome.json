@@ -1,4 +1,16 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "omnicompass:config",
+      "key": "enable_biome_compass"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "omnicompass:config",
+      "key": "enable_biome_compass"
+    }
+  ],
   "entries": [
     {
       "type": "omnicompass:all_of",

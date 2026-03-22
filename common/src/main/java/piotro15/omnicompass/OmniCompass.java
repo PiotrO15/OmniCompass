@@ -51,4 +51,8 @@ public final class OmniCompass {
             return -1;
         }, ModItems.COMPASS);
     }
+
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    }
 }

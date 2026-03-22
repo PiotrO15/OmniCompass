@@ -1,8 +1,12 @@
 package piotro15.omnicompass.fabric;
 
+import com.mojang.serialization.MapCodec;
 import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeConfigRegistry;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -16,14 +20,20 @@ import piotro15.omnicompass.common.network.CompassScreenPacket;
 import piotro15.omnicompass.common.network.CompassSelectEntryPacket;
 import piotro15.omnicompass.common.registry.ModRegistries;
 import piotro15.omnicompass.config.CommonConfig;
+import piotro15.omnicompass.fabric.common.ConfigResourceCondition;
 import piotro15.omnicompass.util.Platform;
 
 public final class OmniCompassFabric implements ModInitializer {
+    public static ResourceConditionType<ConfigResourceCondition> CONFIG_RESOURCE_CONDITION;
+
     @Override
     public void onInitialize() {
         Platform.setup(new FabricPlatform());
 
         OmniCompass.init();
+
+        CONFIG_RESOURCE_CONDITION = createResourceConditionType("config", ConfigResourceCondition.CODEC);
+        ResourceConditions.register(CONFIG_RESOURCE_CONDITION);
 
         NeoForgeConfigRegistry.INSTANCE.register(OmniCompass.MOD_ID, ModConfig.Type.COMMON, CommonConfig.SPEC);
 
@@ -50,5 +60,9 @@ public final class OmniCompassFabric implements ModInitializer {
 
             singleTarget.find(player, msg.compassType(), msg.targetType(), msg.targetId());
         });
+    }
+
+    private static <T extends ResourceCondition> ResourceConditionType<T> createResourceConditionType(String name, MapCodec<T> codec) {
+        return ResourceConditionType.create(OmniCompass.id(name), codec);
     }
 }

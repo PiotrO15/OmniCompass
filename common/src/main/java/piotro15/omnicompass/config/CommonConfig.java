@@ -19,6 +19,9 @@ public class CommonConfig {
     public final ModConfigSpec.ConfigValue<List<? extends String>> biomeBlacklist;
     public final ModConfigSpec.ConfigValue<List<? extends String>> structureBlacklist;
 
+    public final ModConfigSpec.BooleanValue enableBiomeCompass;
+    public final ModConfigSpec.BooleanValue enableStructureCompass;
+
     private CommonConfig(ModConfigSpec.Builder builder) {
         horizontalResolution = builder.defineInRange("horizontal_resolution", 32, 1, 512);
         verticalResolution = builder.defineInRange("vertical_resolution", 64, 1, 512);
@@ -28,6 +31,9 @@ public class CommonConfig {
 
         biomeBlacklist = builder.defineListAllowEmpty("biome_blacklist", ArrayList::new, () -> "", o -> true);
         structureBlacklist = builder.defineListAllowEmpty("structure_blacklist", ArrayList::new, () -> "", o -> true);
+
+        enableBiomeCompass = builder.define("enable_biome_compass", true);
+        enableStructureCompass = builder.define("enable_structure_compass", true);
     }
 
     static {
