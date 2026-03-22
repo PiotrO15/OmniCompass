@@ -1,17 +1,17 @@
 modLoader = "javafml"
 loaderVersion = "[2,)"
-#issueTrackerURL = ""
+issueTrackerURL = "https://github.com/PiotrO15/OmniCompass/issues"
 license = "MIT"
 
 [[mods]]
 modId = "omnicompass"
 version = "${version}"
 displayName = "OmniCompass"
-authors = ""
+authors = "MeVerdo"
 description = '''
-
+Configurable biome and structure compasses!
 '''
-#logoFile = ""
+logoFile = "icon.png"
 
 [[dependencies.omnicompass]]
 modId = "neoforge"
