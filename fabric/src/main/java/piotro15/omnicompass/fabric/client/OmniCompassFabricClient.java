@@ -1,5 +1,6 @@
 package piotro15.omnicompass.fabric.client;
 
+import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.client.ConfigScreenFactoryRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -13,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import piotro15.omnicompass.OmniCompass;
 import piotro15.omnicompass.client.ModItemProperties;
 import piotro15.omnicompass.client.screens.CompassScreen;
@@ -29,6 +31,8 @@ public final class OmniCompassFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         OmniCompass.initClient();
         ModItemProperties.init();
+
+        ConfigScreenFactoryRegistry.INSTANCE.register(OmniCompass.MOD_ID, ConfigurationScreen::new);
 
         ClientPlayNetworking.registerGlobalReceiver(CompassScreenPacket.TYPE, (msg, ctx) -> {
             ClientLevel level = Minecraft.getInstance().level;
