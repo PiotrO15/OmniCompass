@@ -1,4 +1,16 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "omnicompass:config",
+      "key": "enable_structure_compass"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "omnicompass:config",
+      "key": "enable_structure_compass"
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {

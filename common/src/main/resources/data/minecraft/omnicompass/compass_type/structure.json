@@ -1,0 +1,22 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "omnicompass:config",
+      "key": "enable_structure_compass"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "omnicompass:config",
+      "key": "enable_structure_compass"
+    }
+  ],
+  "entries": [
+    {
+      "type": "omnicompass:all_of",
+      "entryType": "minecraft:worldgen/structure"
+    }
+  ],
+  "needle_color": 11184810,
+  "needle_shade_color": 8338988
+}

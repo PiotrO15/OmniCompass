@@ -1,4 +1,16 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "omnicompass:config",
+      "key": "enable_biome_compass"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "omnicompass:config",
+      "key": "enable_biome_compass"
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_compass": {
@@ -13,7 +25,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "omnicompass:structure_compass"
+        "recipe": "omnicompass:biome_compass"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +38,7 @@
   ],
   "rewards": {
     "recipes": [
-      "omnicompass:structure_compass"
+      "omnicompass:biome_compass"
     ]
   }
 }

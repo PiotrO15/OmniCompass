@@ -34,5 +34,9 @@ public class LanguageDatagen extends LanguageProvider {
         add("omnicompass.configuration.structure_blacklist.tooltip", "A list of structures that will not be searchable using Structure Compass. This setting removes the blacklisted structures from all_of target.");
         add("omnicompass.configuration.biome_blacklist", "Biome Blacklist");
         add("omnicompass.configuration.biome_blacklist.tooltip", "A list of biomes that will not be searchable using Biome Compass. This setting removes the blacklisted biomes from all_of target.");
+        add("omnicompass.configuration.enable_biome_compass", "Enable Biome Compass");
+        add("omnicompass.configuration.enable_biome_compass.tooltip", "Enable the default Biome Compass, which can locate any biome.");
+        add("omnicompass.configuration.enable_structure_compass", "Enable Structure Compass");
+        add("omnicompass.configuration.enable_structure_compass.tooltip", "Enable the default Structure Compass, which can locate any structure.");
     }
 }

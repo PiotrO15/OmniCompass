@@ -23,19 +23,19 @@ public class DataGenerators {
         PackOutput packOutput = gen.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
-        gen.addProvider(true, new RecipeDatagen(packOutput, lookupProvider));
+//        gen.addProvider(true, new RecipeDatagen(packOutput, lookupProvider));
         gen.addProvider(true, new LanguageDatagen(packOutput, OmniCompass.MOD_ID, "en_us"));
         gen.addProvider(true, new ItemModelDatagen(packOutput, OmniCompass.MOD_ID, event.getExistingFileHelper()));
 
-        gen.addProvider(
-                true,
-                (DataProvider.Factory<DatapackBuiltinEntriesProvider>) output -> new DatapackBuiltinEntriesProvider(
-                        output,
-                        lookupProvider,
-                        new RegistrySetBuilder()
-                                .add(ModRegistries.COMPASS_TYPE, CompassTypeDatagen::registerCompassTypes),
-                        Set.of(OmniCompass.MOD_ID, "minecraft")
-                )
-        );
+//        gen.addProvider(
+//                true,
+//                (DataProvider.Factory<DatapackBuiltinEntriesProvider>) output -> new DatapackBuiltinEntriesProvider(
+//                        output,
+//                        lookupProvider,
+//                        new RegistrySetBuilder()
+//                                .add(ModRegistries.COMPASS_TYPE, CompassTypeDatagen::registerCompassTypes),
+//                        Set.of(OmniCompass.MOD_ID, "minecraft")
+//                )
+//        );
     }
 }
