@@ -1,8 +1,10 @@
 package piotro15.omnicompass.neoforge.client;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
@@ -18,10 +20,15 @@ import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 import piotro15.omnicompass.OmniCompass;
 import piotro15.omnicompass.client.ModItemProperties;
+import piotro15.omnicompass.client.screens.CompassScreen;
+import piotro15.omnicompass.common.items.compass.CompassType;
+import piotro15.omnicompass.common.network.CompassScreenPacket;
 import piotro15.omnicompass.common.registry.ModItems;
+import piotro15.omnicompass.common.registry.ModRegistries;
 import piotro15.omnicompass.neoforge.NeoForgePlatform;
 
 import java.util.Map;
@@ -63,5 +70,24 @@ public class NeoForgeClient {
                 return CompassRenderer.INSTANCE;
             }
         }, ModItems.COMPASS.get());
+    }
+
+    public static void handleCompassScreenPacket(CompassScreenPacket msg, IPayloadContext ctx) {
+        ctx.enqueueWork(() -> {
+            ClientLevel level = Minecraft.getInstance().level;
+
+            if (level == null) {
+                return;
+            }
+
+            Registry<CompassType> registry = level.registryAccess().registryOrThrow(ModRegistries.COMPASS_TYPE);
+            CompassType compassType = registry.get(msg.compassType());
+
+            if (compassType == null || compassType.entries().isEmpty()) {
+                return;
+            }
+
+            Minecraft.getInstance().setScreen(new CompassScreen(msg.compassType(), msg.targets()));
+        });
     }
 }

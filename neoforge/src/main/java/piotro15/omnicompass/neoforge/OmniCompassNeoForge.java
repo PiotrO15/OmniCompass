@@ -1,11 +1,8 @@
 package piotro15.omnicompass.neoforge;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -22,7 +19,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import piotro15.omnicompass.OmniCompass;
 import net.neoforged.fml.common.Mod;
-import piotro15.omnicompass.client.screens.CompassScreen;
 import piotro15.omnicompass.common.items.compass.CompassType;
 import piotro15.omnicompass.common.items.compass.targets.SingleTarget;
 import piotro15.omnicompass.common.network.CompassSelectEntryPacket;
@@ -31,6 +27,7 @@ import piotro15.omnicompass.common.registry.ModDataComponents;
 import piotro15.omnicompass.common.registry.ModItems;
 import piotro15.omnicompass.common.registry.ModRegistries;
 import piotro15.omnicompass.config.CommonConfig;
+import piotro15.omnicompass.neoforge.client.NeoForgeClient;
 import piotro15.omnicompass.util.Platform;
 
 import java.util.function.Supplier;
@@ -62,24 +59,7 @@ public final class OmniCompassNeoForge {
         event.registrar("1").playToClient(
                 CompassScreenPacket.TYPE,
                 CompassScreenPacket.CODEC,
-                (msg, ctx) -> {
-                    ctx.enqueueWork(() -> {
-                        ClientLevel level = Minecraft.getInstance().level;
-
-                        if (level == null) {
-                            return;
-                        }
-
-                        Registry<CompassType> registry = level.registryAccess().registryOrThrow(ModRegistries.COMPASS_TYPE);
-                        CompassType compassType = registry.get(msg.compassType());
-
-                        if (compassType == null || compassType.entries().isEmpty()) {
-                            return;
-                        }
-
-                        Minecraft.getInstance().setScreen(new CompassScreen(msg.compassType(), msg.targets()));
-                    });
-                }
+                (msg, ctx) -> NeoForgeClient.handleCompassScreenPacket(msg, ctx)
         );
 
         event.registrar("1").playToServer(
@@ -122,14 +102,10 @@ public final class OmniCompassNeoForge {
     public void registerCompassesInCreativeTab(BuildCreativeModeTabContentsEvent event) {
         if (!event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) return;
 
-        if (Minecraft.getInstance().level != null) {
-            Registry<CompassType> blendTypeRegistry = Minecraft.getInstance().level.registryAccess().registryOrThrow(ModRegistries.COMPASS_TYPE);
-
-            for (ResourceKey<CompassType> blendKey : blendTypeRegistry.registryKeySet()) {
-                ItemStack stack = new ItemStack(ModItems.COMPASS.get());
-                stack.set(ModDataComponents.COMPASS_TYPE.get(), blendKey.location());
-                event.accept(stack);
-            }
-        }
+        event.getParameters().holders().lookupOrThrow(ModRegistries.COMPASS_TYPE).listElementIds().forEach(compassTypeKey -> {
+            ItemStack stack = new ItemStack(ModItems.COMPASS.get());
+            stack.set(ModDataComponents.COMPASS_TYPE.get(), compassTypeKey.location());
+            event.accept(stack);
+        });
     }
 }
