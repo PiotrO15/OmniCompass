@@ -2,9 +2,11 @@ package piotro15.omnicompass.common.items.compass.targets;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.RegistryFixedCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -12,6 +14,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import piotro15.omnicompass.OmniCompass;
 import piotro15.omnicompass.common.items.CompassItem;
 import piotro15.omnicompass.common.items.compass.CompassTargetConditionRegistry;
@@ -23,14 +26,15 @@ import piotro15.omnicompass.common.search.AsyncLocator;
 import java.util.List;
 
 public record BiomeTarget(
-    ResourceLocation name,
+    Holder<Biome> name,
     List<CompassTargetCondition> conditions
 ) implements SingleTarget {
     public static final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(OmniCompass.MOD_ID, "biome");
 
     public static final MapCodec<BiomeTarget> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
-                    ResourceLocation.CODEC.fieldOf("name").forGetter(BiomeTarget::name),
+                    RegistryFixedCodec.create(Registries.BIOME).fieldOf("name").forGetter(BiomeTarget::name),
+//                    ResourceLocation.CODEC.fieldOf("name").forGetter(BiomeTarget::name),
                     CompassTargetConditionRegistry.CODEC.listOf().fieldOf("conditions").forGetter(BiomeTarget::conditions)
             ).apply(instance, BiomeTarget::new)
     );
@@ -42,12 +46,12 @@ public record BiomeTarget(
 
     @Override
     public ResourceLocation entryId() {
-        return name;
+        return name.unwrapKey().get().location();
     }
 
     @Override
     public Component displayName() {
-        return Component.translatable("biome." + name.getNamespace() + "." + name.getPath());
+        return Component.translatable("biome." + name.unwrapKey().get().location().getNamespace() + "." + name.unwrapKey().get().location().getPath());
     }
 
     @Override

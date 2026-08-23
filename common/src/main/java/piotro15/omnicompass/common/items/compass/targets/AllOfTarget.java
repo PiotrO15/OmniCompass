@@ -35,7 +35,7 @@ public record AllOfTarget(
     @Override
     public List<SingleTarget> processTargets(ServerLevel level) {
         if (entryType.equals(Registries.BIOME.location())) {
-            Set<ResourceLocation> biomes = level.registryAccess().registryOrThrow(Registries.BIOME).keySet();
+            var biomes = level.registryAccess().registryOrThrow(Registries.BIOME).holders().toList();
             return biomes.stream().map(biome -> (SingleTarget) new BiomeTarget(biome, List.of())).filter(singleTarget -> !CommonConfig.INSTANCE.biomeBlacklist.get().contains(((BiomeTarget) singleTarget).name().toString())).toList();
         } else if (entryType.equals(Registries.STRUCTURE.location())) {
             Set<ResourceLocation> biomes = level.registryAccess().registryOrThrow(Registries.STRUCTURE).keySet();

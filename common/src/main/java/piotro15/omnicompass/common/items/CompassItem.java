@@ -51,7 +51,8 @@ public class CompassItem extends Item {
                 return InteractionResultHolder.fail(itemStack);
             }
 
-            Platform.getInstance().sendToPlayer((ServerPlayer) player, new CompassScreenPacket(typeComponent, compassType.getTargets((ServerLevel) level).stream().filter(target -> target.isUnlocked((ServerPlayer) player)).toList()));
+            CompassScreenPacket packet = new CompassScreenPacket(typeComponent, compassType.getTargets((ServerLevel) level).stream().filter(target -> target.isUnlocked((ServerPlayer) player)).toList(), level.registryAccess());
+            Platform.getInstance().sendToPlayer((ServerPlayer) player, packet);
             return InteractionResultHolder.success(itemStack);
         }
 
