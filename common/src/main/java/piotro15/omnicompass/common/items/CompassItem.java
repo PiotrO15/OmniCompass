@@ -60,8 +60,10 @@ public class CompassItem extends Item {
                 return InteractionResultHolder.fail(itemStack);
             }
 
-            CompassScreenPacket packet = new CompassScreenPacket(typeComponent, compassType.getTargets((ServerLevel) level).stream().filter(target -> target.isUnlocked((ServerPlayer) player)).toList(), level.registryAccess());
-            Platform.getInstance().sendToPlayer((ServerPlayer) player, packet);
+            List<CompassTargetType> targets = compassType.getTargets((ServerLevel) level).stream()
+                    .map(t -> new CompassTargetType(t.targetType(), t.entryId(), t.isTag()))
+                    .toList();
+            Platform.getInstance().sendToPlayer((ServerPlayer) player, new CompassScreenPacket(typeComponent, targets));
             return InteractionResultHolder.success(itemStack);
         }
 
@@ -79,7 +81,7 @@ public class CompassItem extends Item {
     }
 
     public static void setTarget(ItemStack itemStack, SingleTarget target, ResourceKey<Level> dimension, BlockPos blockPos) {
-        itemStack.set(ModDataComponents.TARGET_TYPE.get(), new CompassTargetType(target.targetType(), target.entryId()));
+        itemStack.set(ModDataComponents.TARGET_TYPE.get(), new CompassTargetType(target.targetType(), target.entryId(), target.isTag()));
         itemStack.set(ModDataComponents.TARGET_POSITION.get(), new GlobalPos(dimension, blockPos));
     }
 }

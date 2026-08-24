@@ -90,6 +90,11 @@ public record BiomeTarget(
     }
 
     @Override
+    public boolean isTag() {
+        return name.unwrap().left().isPresent();
+    }
+
+    @Override
     public boolean isUnlocked(ServerPlayer player) {
         return conditions.stream().allMatch(condition -> condition.isMet(player));
     }
