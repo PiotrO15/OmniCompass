@@ -25,6 +25,7 @@ public class LanguageDatagen extends LanguageProvider {
         add("omnicompass.target.distance", "Distance");
         add("omnicompass.target.distance.blocks", "%s Blocks");
         add("omnicompass.target.position", "Position");
+        add("omnicompass.target.unknown", "Unknown Target Name");
         add("omnicompass.target.omnicompass.biome", "Targeted Biome");
         add("omnicompass.target.omnicompass.structure", "Targeted Structure");
 

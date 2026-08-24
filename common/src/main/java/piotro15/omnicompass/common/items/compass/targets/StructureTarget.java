@@ -4,7 +4,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -81,15 +80,6 @@ public record StructureTarget(
 
         ServerLevel serverLevel = (ServerLevel) level;
 
-//        Registry<Structure> registry = serverLevel.registryAccess().registryOrThrow(Registries.STRUCTURE);
-//        Holder<Structure> structureHolder = registry.getHolder(entryId).orElse(null);
-//        if (structureHolder == null) return;
-//
-//        HolderSet<Structure> holderSet = HolderSet.direct(structureHolder);
-//        BlockPos origin = player.getOnPos();
-//
-//        AsyncLocator.findStructure(serverLevel, player, stack, holderSet, origin);
-
         SingleTarget singleTarget = compassType.getTargets(serverLevel).stream().filter(entry -> entry.entryId().equals(entryId) && entry.targetType().equals(entryType)).findFirst().orElseThrow();
 
         if (singleTarget instanceof StructureTarget structureTarget) {
@@ -105,21 +95,5 @@ public record StructureTarget(
     @Override
     public boolean isUnlocked(ServerPlayer player) {
         return conditions.stream().allMatch(condition -> condition.isMet(player));
-    }
-
-    private Component getFriendlyName(ResourceLocation key) {
-        Language language = Language.getInstance();
-
-        if (language.has(key.toLanguageKey())) {
-            return Component.translatable(name.toString());
-        } else {
-            String[] words = key.getPath().split("_");
-            for (int i = 0; i < words.length; i++) {
-                if (!words[i].isEmpty()) {
-                    words[i] = Character.toUpperCase(words[i].charAt(0)) + words[i].substring(1);
-                }
-            }
-            return Component.literal(String.join(" ", words));
-        }
     }
 }

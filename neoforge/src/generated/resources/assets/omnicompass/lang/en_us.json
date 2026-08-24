@@ -27,5 +27,6 @@
   "omnicompass.target.distance.blocks": "%s Blocks",
   "omnicompass.target.omnicompass.biome": "Targeted Biome",
   "omnicompass.target.omnicompass.structure": "Targeted Structure",
-  "omnicompass.target.position": "Position"
+  "omnicompass.target.position": "Position",
+  "omnicompass.target.unknown": "Unknown Target Name"
 }

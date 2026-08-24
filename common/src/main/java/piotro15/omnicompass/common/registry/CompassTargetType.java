@@ -3,6 +3,7 @@ package piotro15.omnicompass.common.registry;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -28,11 +29,25 @@ public record CompassTargetType(ResourceLocation type, ResourceLocation id, bool
     }
 
     public MutableComponent getTargetName() {
+        Language language = Language.getInstance();
+
         String prefix = isTag ? "tag." : "";
-        return switch (type.toString()) {
-            case "omnicompass:structure" -> Component.translatable(prefix + "structure." + id.toLanguageKey());
-            case "omnicompass:biome" -> Component.translatable(prefix + "biome." + id.toLanguageKey());
-            default -> Component.translatable("omnicompass.target.unknown");
+        String key = switch (type.toString()) {
+            case "omnicompass:structure" -> prefix + "structure." + id.toLanguageKey();
+            case "omnicompass:biome" -> prefix + "biome." + id.toLanguageKey();
+            default -> "omnicompass.target.unknown";
         };
+
+        if (language.has(key)) {
+            return Component.translatable(key);
+        } else {
+            String[] words = id.getPath().split("[_/]");
+            for (int i = 0; i < words.length; i++) {
+                if (!words[i].isEmpty()) {
+                    words[i] = Character.toUpperCase(words[i].charAt(0)) + words[i].substring(1);
+                }
+            }
+            return Component.literal(String.join(" ", words));
+        }
     }
 }
