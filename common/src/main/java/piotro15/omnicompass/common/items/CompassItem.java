@@ -1,8 +1,12 @@
 package piotro15.omnicompass.common.items;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,13 +15,18 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import piotro15.omnicompass.common.items.compass.CompassType;
+import piotro15.omnicompass.common.items.compass.targets.SingleTarget;
 import piotro15.omnicompass.common.network.CompassScreenPacket;
+import piotro15.omnicompass.common.registry.CompassTargetType;
 import piotro15.omnicompass.common.registry.ModDataComponents;
 import piotro15.omnicompass.common.registry.ModRegistries;
 import piotro15.omnicompass.util.Platform;
+
+import java.util.List;
 
 public class CompassItem extends Item {
     public CompassItem() {
@@ -57,5 +66,20 @@ public class CompassItem extends Item {
         }
 
         return InteractionResultHolder.pass(itemStack);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
+        CompassTargetType targetType = itemStack.get(ModDataComponents.TARGET_TYPE.get());
+        if (targetType != null) {
+            list.add(targetType.getTargetType().append(Component.literal(": ")).append(targetType.getTargetName()).withStyle(ChatFormatting.GRAY));
+        }
+
+        super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag);
+    }
+
+    public static void setTarget(ItemStack itemStack, SingleTarget target, ResourceKey<Level> dimension, BlockPos blockPos) {
+        itemStack.set(ModDataComponents.TARGET_TYPE.get(), new CompassTargetType(target.targetType(), target.entryId()));
+        itemStack.set(ModDataComponents.TARGET_POSITION.get(), new GlobalPos(dimension, blockPos));
     }
 }

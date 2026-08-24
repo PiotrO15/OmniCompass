@@ -66,7 +66,7 @@ public class EntrySelectionList extends AbstractSelectionList<EntrySelectionList
                     "textures/entry/" + entry.targetType().getPath() + ".png"
             );
 
-            int textureX = EntrySelectionList.this.width / 2 + mc.font.width(entry.displayName()) / 2 + 4; // po lewej stronie tekstu
+            int textureX = EntrySelectionList.this.width / 2 + mc.font.width(entry.displayName()) / 2 + 4;
             int textureY = (y + m / 2) - 6;
 
             guiGraphics.blit(texture, textureX, textureY, 0, 0, 10, 10, 10, 10);

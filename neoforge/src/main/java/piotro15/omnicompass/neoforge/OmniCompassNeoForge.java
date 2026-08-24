@@ -59,7 +59,7 @@ public final class OmniCompassNeoForge {
         event.registrar("1").playToClient(
                 CompassScreenPacket.TYPE,
                 CompassScreenPacket.CODEC,
-                (msg, ctx) -> NeoForgeClient.handleCompassScreenPacket(msg, ctx)
+                NeoForgeClient::handleCompassScreenPacket
         );
 
         event.registrar("1").playToServer(
