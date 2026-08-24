@@ -7,13 +7,17 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
@@ -33,6 +37,7 @@ import piotro15.omnicompass.util.Platform;
 import java.util.function.Supplier;
 
 @Mod(OmniCompass.MOD_ID)
+@EventBusSubscriber(modid = OmniCompass.MOD_ID)
 public final class OmniCompassNeoForge {
     public static final DeferredRegister<MapCodec<? extends ICondition>> CONDITION_CODECS =
             DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS, OmniCompass.MOD_ID);
@@ -47,22 +52,22 @@ public final class OmniCompassNeoForge {
 
         OmniCompass.init();
 
-        modEventBus.addListener(this::registerDatapackRegistries);
-        modEventBus.addListener(this::registerPayloadHandlers);
-        modEventBus.addListener(this::registerCompassesInCreativeTab);
-
         container.registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
     }
 
     @SubscribeEvent
-    private void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {
-        event.registrar("1").playToClient(
+    private static void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {
+        PayloadRegistrar registrar = event.registrar("1");
+
+        registrar.playToClient(
                 CompassScreenPacket.TYPE,
                 CompassScreenPacket.CODEC,
-                NeoForgeClient::handleCompassScreenPacket
+                FMLEnvironment.dist.isClient()
+                        ? NeoForgeClient::handleCompassScreenPacket
+                        : (msg, ctx) -> {}
         );
 
-        event.registrar("1").playToServer(
+        registrar.playToServer(
                 CompassSelectEntryPacket.TYPE,
                 CompassSelectEntryPacket.CODEC,
                 (msg, ctx) -> {
@@ -92,14 +97,14 @@ public final class OmniCompassNeoForge {
     }
 
     @SubscribeEvent
-    public void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry event) {
+    private static void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry event) {
         for (NeoForgePlatform.DataRegistryRegisterable<?> registerable : NeoForgePlatform.dataRegistryRegisterables) {
             registerable.register(event);
         }
     }
 
     @SubscribeEvent
-    public void registerCompassesInCreativeTab(BuildCreativeModeTabContentsEvent event) {
+    private static void registerCompassesInCreativeTab(BuildCreativeModeTabContentsEvent event) {
         if (!event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) return;
 
         event.getParameters().holders().lookupOrThrow(ModRegistries.COMPASS_TYPE).listElementIds().forEach(compassTypeKey -> {

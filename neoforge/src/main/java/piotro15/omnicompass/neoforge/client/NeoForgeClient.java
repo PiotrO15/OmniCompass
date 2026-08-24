@@ -16,6 +16,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
@@ -24,6 +25,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 import piotro15.omnicompass.OmniCompass;
 import piotro15.omnicompass.client.ModItemProperties;
+import piotro15.omnicompass.client.screens.CompassOverlay;
 import piotro15.omnicompass.client.screens.CompassScreen;
 import piotro15.omnicompass.common.items.compass.CompassType;
 import piotro15.omnicompass.common.network.CompassScreenPacket;
@@ -70,6 +72,11 @@ public class NeoForgeClient {
                 return CompassRenderer.INSTANCE;
             }
         }, ModItems.COMPASS.get());
+    }
+
+    @SubscribeEvent
+    public static void onCompassOverlay(RegisterGuiLayersEvent event) {
+        event.registerAboveAll(OmniCompass.id("compass_overlay"), new CompassOverlay());
     }
 
     public static void handleCompassScreenPacket(CompassScreenPacket msg, IPayloadContext ctx) {
