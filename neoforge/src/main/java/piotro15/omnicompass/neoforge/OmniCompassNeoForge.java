@@ -14,6 +14,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -23,6 +24,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import piotro15.omnicompass.OmniCompass;
 import net.neoforged.fml.common.Mod;
 import piotro15.omnicompass.common.items.compass.CompassType;
+import piotro15.omnicompass.common.items.compass.targets.AllOfTarget;
 import piotro15.omnicompass.common.items.compass.targets.SingleTarget;
 import piotro15.omnicompass.common.network.CompassSelectEntryPacket;
 import piotro15.omnicompass.common.network.CompassScreenPacket;
@@ -113,5 +115,10 @@ public final class OmniCompassNeoForge {
             stack.set(ModDataComponents.COMPASS_TYPE.get(), compassTypeKey.location());
             event.accept(stack);
         });
+    }
+
+    @SubscribeEvent
+    private static void onReload(AddReloadListenerEvent event) {
+        CompassType.invalidateCache();
     }
 }
