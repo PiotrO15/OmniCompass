@@ -66,4 +66,8 @@ public record CompassType(
             return new CompassType(entries, needleColor, needleShadeColor);
         }
     }
+
+    public static void invalidateCache() {
+        CACHED_TARGETS.clear();
+    }
 }

@@ -2,16 +2,19 @@ package piotro15.omnicompass.common.items.compass.targets;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import piotro15.omnicompass.OmniCompass;
 import piotro15.omnicompass.common.items.CompassItem;
 import piotro15.omnicompass.common.items.compass.CompassTargetConditionRegistry;
@@ -23,15 +26,15 @@ import piotro15.omnicompass.common.search.AsyncLocator;
 import java.util.List;
 
 public record BiomeTarget(
-    ResourceLocation name,
+    HolderSet<Biome> name,
     List<CompassTargetCondition> conditions
 ) implements SingleTarget {
     public static final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(OmniCompass.MOD_ID, "biome");
 
     public static final MapCodec<BiomeTarget> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
-                    ResourceLocation.CODEC.fieldOf("name").forGetter(BiomeTarget::name),
-                    CompassTargetConditionRegistry.CODEC.listOf().fieldOf("conditions").forGetter(BiomeTarget::conditions)
+                    RegistryCodecs.homogeneousList(Registries.BIOME).fieldOf("name").forGetter(BiomeTarget::name),
+                    CompassTargetConditionRegistry.CODEC.listOf().optionalFieldOf("conditions", List.of()).forGetter(BiomeTarget::conditions)
             ).apply(instance, BiomeTarget::new)
     );
 
@@ -42,12 +45,18 @@ public record BiomeTarget(
 
     @Override
     public ResourceLocation entryId() {
-        return name;
+        return name.unwrap().map(
+                TagKey::location,
+                list -> list.getFirst().unwrapKey().orElseThrow().location()
+        );
     }
 
     @Override
     public Component displayName() {
-        return Component.translatable("biome." + name.getNamespace() + "." + name.getPath());
+        return name.unwrap().map(
+                tag -> Component.translatable("tag.biome." + tag.location().toLanguageKey()),
+                list -> Component.translatable("biome." + list.getFirst().unwrapKey().orElseThrow().location().toLanguageKey())
+        );
     }
 
     @Override
@@ -75,7 +84,14 @@ public record BiomeTarget(
 
         SingleTarget singleTarget = compassType.getTargets(serverLevel).stream().filter(entry -> entry.entryId().equals(entryId) && entry.targetType().equals(entryType)).findFirst().orElseThrow();
 
-        AsyncLocator.findBiome(serverLevel, player, stack, ResourceKey.create(Registries.BIOME, singleTarget.entryId()), player.getOnPos());
+        if (singleTarget instanceof BiomeTarget biomeTarget) {
+            AsyncLocator.findBiome(serverLevel, player, stack, biomeTarget, player.getOnPos());
+        }
+    }
+
+    @Override
+    public boolean isTag() {
+        return name.unwrap().left().isPresent();
     }
 
     @Override

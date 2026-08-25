@@ -8,8 +8,8 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
-import piotro15.omnicompass.common.items.compass.targets.SingleTarget;
 import piotro15.omnicompass.common.network.CompassSelectEntryPacket;
+import piotro15.omnicompass.common.registry.CompassTargetType;
 import piotro15.omnicompass.util.Platform;
 
 public class EntrySelectionList extends AbstractSelectionList<EntrySelectionList.Entry> {
@@ -30,7 +30,7 @@ public class EntrySelectionList extends AbstractSelectionList<EntrySelectionList
 
     }
 
-    public void addEntry(SingleTarget entry) {
+    public void addEntry(CompassTargetType entry) {
         super.addEntry(new Entry(entry));
     }
 
@@ -39,20 +39,20 @@ public class EntrySelectionList extends AbstractSelectionList<EntrySelectionList
     }
 
     public class Entry extends ObjectSelectionList.Entry<Entry> {
-        private final SingleTarget entry;
+        private final CompassTargetType entry;
 
-        Entry(SingleTarget entry) {
+        Entry(CompassTargetType entry) {
             this.entry = entry;
         }
 
         @Override
         public @NotNull Component getNarration() {
-            return entry.displayName();
+            return entry.getTargetName();
         }
 
         @Override
         public boolean mouseClicked(double mouseX, double mouseY, int button) {
-            Platform.getInstance().sendToServer(new CompassSelectEntryPacket(compassType, entry.targetType(), entry.entryId()));
+            Platform.getInstance().sendToServer(new CompassSelectEntryPacket(compassType, entry.type(), entry.id()));
             Minecraft.getInstance().setScreen(null);
             return true;
         }
@@ -62,11 +62,11 @@ public class EntrySelectionList extends AbstractSelectionList<EntrySelectionList
             Minecraft mc = Minecraft.getInstance();
 
             ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(
-                    entry.targetType().getNamespace(),
-                    "textures/entry/" + entry.targetType().getPath() + ".png"
+                    entry.type().getNamespace(),
+                    "textures/entry/" + entry.type().getPath() + ".png"
             );
 
-            int textureX = EntrySelectionList.this.width / 2 + mc.font.width(entry.displayName()) / 2 + 4; // po lewej stronie tekstu
+            int textureX = EntrySelectionList.this.width / 2 + mc.font.width(entry.getTargetName()) / 2 + 4;
             int textureY = (y + m / 2) - 6;
 
             guiGraphics.blit(texture, textureX, textureY, 0, 0, 10, 10, 10, 10);
@@ -74,7 +74,7 @@ public class EntrySelectionList extends AbstractSelectionList<EntrySelectionList
 
             guiGraphics.drawCenteredString(
                     mc.font,
-                    entry.displayName(),
+                    entry.getTargetName(),
                     EntrySelectionList.this.width / 2,
                     (y + m / 2) - 9 / 2,
                     hovered ? 0xFFFFA0 : 0xFFFFFF

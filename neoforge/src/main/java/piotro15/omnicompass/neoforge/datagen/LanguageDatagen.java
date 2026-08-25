@@ -22,6 +22,13 @@ public class LanguageDatagen extends LanguageProvider {
         add("omnicompass.compass.found", "Target found!");
         add("omnicompass.compass.not_found", "No valid targets found");
 
+        add("omnicompass.target.distance", "Distance");
+        add("omnicompass.target.distance.blocks", "%s Blocks");
+        add("omnicompass.target.position", "Position");
+        add("omnicompass.target.unknown", "Unknown Target Name");
+        add("omnicompass.target.omnicompass.biome", "Targeted Biome");
+        add("omnicompass.target.omnicompass.structure", "Targeted Structure");
+
         add("omnicompass.configuration.structure_search_range", "Structure Search Range");
         add("omnicompass.configuration.structure_search_range.tooltip", "Maximum distance (in structure spacing, varies by structure) to search for structures. Higher values may take cause the search to take longer.");
         add("omnicompass.configuration.biome_search_range", "Biome Search Range");
@@ -38,5 +45,14 @@ public class LanguageDatagen extends LanguageProvider {
         add("omnicompass.configuration.enable_biome_compass.tooltip", "Enable the default Biome Compass, which can locate any biome.");
         add("omnicompass.configuration.enable_structure_compass", "Enable Structure Compass");
         add("omnicompass.configuration.enable_structure_compass.tooltip", "Enable the default Structure Compass, which can locate any structure.");
+        add("omnicompass.configuration.overlay", "Overlay Settings");
+        add("omnicompass.configuration.horizontal_alignment", "Horizontal Alignment");
+        add("omnicompass.configuration.horizontal_alignment.tooltip", "Horizontal alignment of the compass overlay (column mode).");
+        add("omnicompass.configuration.vertical_alignment", "Vertical Alignment");
+        add("omnicompass.configuration.vertical_alignment.tooltip", "Vertical alignment of the compass overlay (column mode).");
+        add("omnicompass.configuration.overlay_style", "Compass Overlay Style");
+        add("omnicompass.configuration.overlay_style.tooltip", "Display style of the compass overlay.");
+        add("omnicompass.configuration.show_position", "Show Target Position");
+        add("omnicompass.configuration.show_position.tooltip", "Display the exact position in the compass overlay.");
     }
 }

@@ -4,11 +4,11 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -24,15 +24,15 @@ import piotro15.omnicompass.common.search.AsyncLocator;
 import java.util.List;
 
 public record StructureTarget(
-        ResourceLocation name,
+        HolderSet<Structure> name,
         List<CompassTargetCondition> conditions
 ) implements SingleTarget {
     public static final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(OmniCompass.MOD_ID, "structure");
 
     public static final MapCodec<StructureTarget> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
-                    ResourceLocation.CODEC.fieldOf("name").forGetter(StructureTarget::name),
-                    CompassTargetConditionRegistry.CODEC.listOf().fieldOf("conditions").forGetter(StructureTarget::conditions)
+                    RegistryCodecs.homogeneousList(Registries.STRUCTURE).fieldOf("name").forGetter(StructureTarget::name),
+                    CompassTargetConditionRegistry.CODEC.listOf().optionalFieldOf("conditions", List.of()).forGetter(StructureTarget::conditions)
             ).apply(instance, StructureTarget::new)
     );
 
@@ -43,25 +43,18 @@ public record StructureTarget(
 
     @Override
     public ResourceLocation entryId() {
-        return name;
+        return name.unwrap().map(
+                TagKey::location,
+                list -> list.getFirst().unwrapKey().orElseThrow().location()
+        );
     }
 
     @Override
     public Component displayName() {
-        Language language = Language.getInstance();
-        String key = "structure." + name.getNamespace() + "." + name.getPath();
-
-        if (language.has(key)) {
-            return Component.translatable(name.toString());
-        } else {
-            String[] words = name.getPath().split("_");
-            for (int i = 0; i < words.length; i++) {
-                if (!words[i].isEmpty()) {
-                    words[i] = Character.toUpperCase(words[i].charAt(0)) + words[i].substring(1);
-                }
-            }
-            return Component.literal(String.join(" ", words));
-        }
+        return name.unwrap().map(
+                tag -> Component.translatable("tag.structure." + tag.location().toLanguageKey()),
+                list -> Component.translatable("structure." + list.getFirst().unwrapKey().orElseThrow().location().toLanguageKey())
+        );
     }
 
     @Override
@@ -87,14 +80,16 @@ public record StructureTarget(
 
         ServerLevel serverLevel = (ServerLevel) level;
 
-        Registry<Structure> registry = serverLevel.registryAccess().registryOrThrow(Registries.STRUCTURE);
-        Holder<Structure> structureHolder = registry.getHolder(entryId).orElse(null);
-        if (structureHolder == null) return;
+        SingleTarget singleTarget = compassType.getTargets(serverLevel).stream().filter(entry -> entry.entryId().equals(entryId) && entry.targetType().equals(entryType)).findFirst().orElseThrow();
 
-        HolderSet<Structure> holderSet = HolderSet.direct(structureHolder);
-        BlockPos origin = player.getOnPos();
+        if (singleTarget instanceof StructureTarget structureTarget) {
+            AsyncLocator.findStructure(serverLevel, player, stack, structureTarget, player.getOnPos());
+        }
+    }
 
-        AsyncLocator.findStructure(serverLevel, player, stack, holderSet, origin);
+    @Override
+    public boolean isTag() {
+        return name.unwrap().left().isPresent();
     }
 
     @Override

@@ -10,5 +10,7 @@ public interface SingleTarget extends CompassTarget {
 
     void find(Player player, ResourceLocation compassId, ResourceLocation entryType, ResourceLocation entryId);
 
+    boolean isTag();
+
     boolean isUnlocked(ServerPlayer player);
 }

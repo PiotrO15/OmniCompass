@@ -22,6 +22,8 @@ public class CommonConfig {
     public final ModConfigSpec.BooleanValue enableBiomeCompass;
     public final ModConfigSpec.BooleanValue enableStructureCompass;
 
+    public final ModConfigSpec.BooleanValue showPosition;
+
     private CommonConfig(ModConfigSpec.Builder builder) {
         horizontalResolution = builder.defineInRange("horizontal_resolution", 32, 1, 512);
         verticalResolution = builder.defineInRange("vertical_resolution", 64, 1, 512);
@@ -34,6 +36,8 @@ public class CommonConfig {
 
         enableBiomeCompass = builder.define("enable_biome_compass", true);
         enableStructureCompass = builder.define("enable_structure_compass", true);
+
+        showPosition = builder.define("show_position_in_overlay", true);
     }
 
     static {

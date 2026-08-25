@@ -2,6 +2,7 @@ package piotro15.omnicompass.common.items.compass.targets;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -9,7 +10,6 @@ import piotro15.omnicompass.OmniCompass;
 import piotro15.omnicompass.config.CommonConfig;
 
 import java.util.List;
-import java.util.Set;
 
 public record AllOfTarget(
         ResourceLocation entryType
@@ -35,11 +35,15 @@ public record AllOfTarget(
     @Override
     public List<SingleTarget> processTargets(ServerLevel level) {
         if (entryType.equals(Registries.BIOME.location())) {
-            Set<ResourceLocation> biomes = level.registryAccess().registryOrThrow(Registries.BIOME).keySet();
-            return biomes.stream().map(biome -> (SingleTarget) new BiomeTarget(biome, List.of())).filter(singleTarget -> !CommonConfig.INSTANCE.biomeBlacklist.get().contains(((BiomeTarget) singleTarget).name().toString())).toList();
+            return level.registryAccess().registryOrThrow(Registries.BIOME).holders()
+                    .filter(biome -> !CommonConfig.INSTANCE.biomeBlacklist.get().contains(biome.key().location().toString()))
+                    .map(biome -> (SingleTarget) new BiomeTarget(HolderSet.direct(biome), List.of()))
+                    .toList();
         } else if (entryType.equals(Registries.STRUCTURE.location())) {
-            Set<ResourceLocation> biomes = level.registryAccess().registryOrThrow(Registries.STRUCTURE).keySet();
-            return biomes.stream().map(structure -> (SingleTarget) new StructureTarget(structure, List.of())).filter(singleTarget -> !CommonConfig.INSTANCE.structureBlacklist.get().contains(((StructureTarget) singleTarget).name().toString())).toList();
+            return level.registryAccess().registryOrThrow(Registries.STRUCTURE).holders()
+                    .filter(structure -> !CommonConfig.INSTANCE.structureBlacklist.get().contains(structure.key().location().toString()))
+                    .map(structure -> (SingleTarget) new StructureTarget(HolderSet.direct(structure), List.of()))
+                    .toList();
         }
         return List.of();
     }
