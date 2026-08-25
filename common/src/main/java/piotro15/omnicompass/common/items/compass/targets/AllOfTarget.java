@@ -35,11 +35,15 @@ public record AllOfTarget(
     @Override
     public List<SingleTarget> processTargets(ServerLevel level) {
         if (entryType.equals(Registries.BIOME.location())) {
-            var biomes = level.registryAccess().registryOrThrow(Registries.BIOME).holders().toList();
-            return biomes.stream().map(biome -> (SingleTarget) new BiomeTarget(HolderSet.direct(biome), List.of())).filter(singleTarget -> !CommonConfig.INSTANCE.biomeBlacklist.get().contains(((BiomeTarget) singleTarget).name().toString())).toList();
+            return level.registryAccess().registryOrThrow(Registries.BIOME).holders()
+                    .filter(biome -> !CommonConfig.INSTANCE.biomeBlacklist.get().contains(biome.key().location().toString()))
+                    .map(biome -> (SingleTarget) new BiomeTarget(HolderSet.direct(biome), List.of()))
+                    .toList();
         } else if (entryType.equals(Registries.STRUCTURE.location())) {
-            var structures = level.registryAccess().registryOrThrow(Registries.STRUCTURE).holders().toList();
-            return structures.stream().map(structure -> (SingleTarget) new StructureTarget(HolderSet.direct(structure), List.of())).filter(singleTarget -> !CommonConfig.INSTANCE.structureBlacklist.get().contains(((StructureTarget) singleTarget).name().toString())).toList();
+            return level.registryAccess().registryOrThrow(Registries.STRUCTURE).holders()
+                    .filter(structure -> !CommonConfig.INSTANCE.structureBlacklist.get().contains(structure.key().location().toString()))
+                    .map(structure -> (SingleTarget) new StructureTarget(HolderSet.direct(structure), List.of()))
+                    .toList();
         }
         return List.of();
     }

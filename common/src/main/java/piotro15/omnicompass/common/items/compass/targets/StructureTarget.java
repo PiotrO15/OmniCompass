@@ -32,7 +32,7 @@ public record StructureTarget(
     public static final MapCodec<StructureTarget> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
                     RegistryCodecs.homogeneousList(Registries.STRUCTURE).fieldOf("name").forGetter(StructureTarget::name),
-                    CompassTargetConditionRegistry.CODEC.listOf().fieldOf("conditions").forGetter(StructureTarget::conditions)
+                    CompassTargetConditionRegistry.CODEC.listOf().optionalFieldOf("conditions", List.of()).forGetter(StructureTarget::conditions)
             ).apply(instance, StructureTarget::new)
     );
 
