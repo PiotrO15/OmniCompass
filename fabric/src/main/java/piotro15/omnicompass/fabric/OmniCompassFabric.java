@@ -19,6 +19,7 @@ import piotro15.omnicompass.common.items.compass.targets.SingleTarget;
 import piotro15.omnicompass.common.network.CompassScreenPacket;
 import piotro15.omnicompass.common.network.CompassSelectEntryPacket;
 import piotro15.omnicompass.common.registry.ModRegistries;
+import piotro15.omnicompass.config.ClientConfig;
 import piotro15.omnicompass.config.CommonConfig;
 import piotro15.omnicompass.fabric.common.ConfigResourceCondition;
 import piotro15.omnicompass.util.Platform;
@@ -35,6 +36,7 @@ public final class OmniCompassFabric implements ModInitializer {
         CONFIG_RESOURCE_CONDITION = createResourceConditionType("config", ConfigResourceCondition.CODEC);
         ResourceConditions.register(CONFIG_RESOURCE_CONDITION);
 
+        NeoForgeConfigRegistry.INSTANCE.register(OmniCompass.MOD_ID, ModConfig.Type.CLIENT, ClientConfig.SPEC);
         NeoForgeConfigRegistry.INSTANCE.register(OmniCompass.MOD_ID, ModConfig.Type.COMMON, CommonConfig.SPEC);
 
         PayloadTypeRegistry.playC2S().register(CompassSelectEntryPacket.TYPE, CompassSelectEntryPacket.CODEC);

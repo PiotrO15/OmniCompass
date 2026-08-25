@@ -45,5 +45,14 @@ public class LanguageDatagen extends LanguageProvider {
         add("omnicompass.configuration.enable_biome_compass.tooltip", "Enable the default Biome Compass, which can locate any biome.");
         add("omnicompass.configuration.enable_structure_compass", "Enable Structure Compass");
         add("omnicompass.configuration.enable_structure_compass.tooltip", "Enable the default Structure Compass, which can locate any structure.");
+        add("omnicompass.configuration.overlay", "Overlay Settings");
+        add("omnicompass.configuration.horizontal_alignment", "Horizontal Alignment");
+        add("omnicompass.configuration.horizontal_alignment.tooltip", "Horizontal alignment of the compass overlay (column mode).");
+        add("omnicompass.configuration.vertical_alignment", "Vertical Alignment");
+        add("omnicompass.configuration.vertical_alignment.tooltip", "Vertical alignment of the compass overlay (column mode).");
+        add("omnicompass.configuration.overlay_style", "Compass Overlay Style");
+        add("omnicompass.configuration.overlay_style.tooltip", "Display style of the compass overlay.");
+        add("omnicompass.configuration.show_position", "Show Target Position");
+        add("omnicompass.configuration.show_position.tooltip", "Display the exact position in the compass overlay.");
     }
 }

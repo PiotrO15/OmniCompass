@@ -7,7 +7,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -30,6 +29,7 @@ import piotro15.omnicompass.common.network.CompassScreenPacket;
 import piotro15.omnicompass.common.registry.ModDataComponents;
 import piotro15.omnicompass.common.registry.ModItems;
 import piotro15.omnicompass.common.registry.ModRegistries;
+import piotro15.omnicompass.config.ClientConfig;
 import piotro15.omnicompass.config.CommonConfig;
 import piotro15.omnicompass.neoforge.client.NeoForgeClient;
 import piotro15.omnicompass.util.Platform;
@@ -52,6 +52,7 @@ public final class OmniCompassNeoForge {
 
         OmniCompass.init();
 
+        container.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         container.registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
     }
 
