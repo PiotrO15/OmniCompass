@@ -32,9 +32,9 @@ public class CompassOverlay implements LayeredDraw.Layer {
         if (player == null) return;
 
         ItemStack itemStack = player.getOffhandItem();
-        if (!itemStack.is(ModItems.COMPASS)) {
+        if (!itemStack.is(ModItems.COMPASS.get())) {
             itemStack = player.getMainHandItem();
-            if (!itemStack.is(ModItems.COMPASS)) return;
+            if (!itemStack.is(ModItems.COMPASS.get())) return;
         }
 
         CompassTargetType targetType = itemStack.get(ModDataComponents.TARGET_TYPE.get());

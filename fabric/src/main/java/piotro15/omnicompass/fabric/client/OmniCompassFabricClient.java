@@ -4,6 +4,8 @@ import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.client.ConfigScreenFactory
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -17,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import piotro15.omnicompass.OmniCompass;
 import piotro15.omnicompass.client.ModItemProperties;
+import piotro15.omnicompass.client.screens.CompassOverlay;
 import piotro15.omnicompass.client.screens.CompassScreen;
 import piotro15.omnicompass.common.items.compass.CompassType;
 import piotro15.omnicompass.common.network.CompassScreenPacket;
@@ -33,6 +36,9 @@ public final class OmniCompassFabricClient implements ClientModInitializer {
         ModItemProperties.init();
 
         ConfigScreenFactoryRegistry.INSTANCE.register(OmniCompass.MOD_ID, ConfigurationScreen::new);
+
+        CompassOverlay compassOverlay = new CompassOverlay();
+        HudRenderCallback.EVENT.register(Event.DEFAULT_PHASE, compassOverlay::render);
 
         ClientPlayNetworking.registerGlobalReceiver(CompassScreenPacket.TYPE, (msg, ctx) -> {
             ClientLevel level = Minecraft.getInstance().level;
