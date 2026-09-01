@@ -1,8 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "omnicompass:item/needle_layer_0",
-    "layer1": "omnicompass:item/shade_19",
-    "layer2": "omnicompass:item/needle_19"
+    "layer0": "omnicompass:item/shade_19",
+    "layer1": "omnicompass:item/needle_19"
   }
 }

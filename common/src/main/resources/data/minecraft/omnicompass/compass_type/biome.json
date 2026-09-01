@@ -17,6 +17,7 @@
       "entryType": "minecraft:worldgen/biome"
     }
   ],
+  "model": "omnicompass:biome_compass",
   "needle_color": 12754274,
   "needle_shade_color": 9860161
 }

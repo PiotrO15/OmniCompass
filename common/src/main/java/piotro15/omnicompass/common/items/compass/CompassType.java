@@ -2,6 +2,7 @@ package piotro15.omnicompass.common.items.compass;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import piotro15.omnicompass.common.items.compass.targets.CompassTarget;
 import piotro15.omnicompass.common.items.compass.targets.MultiTarget;
@@ -15,7 +16,8 @@ import java.util.stream.Stream;
 public record CompassType(
         List<CompassTarget> entries,
         int needleColor,
-        int needleShadeColor
+        int needleShadeColor,
+        Identifier model
 ) {
     private static final Map<CompassType, List<SingleTarget>> CACHED_TARGETS = new HashMap<>();
 
@@ -38,7 +40,8 @@ public record CompassType(
             instance -> instance.group(
                     CompassTargetRegistry.CODEC.listOf().fieldOf("entries").forGetter(CompassType::entries),
                     Codec.INT.optionalFieldOf("needle_color", 0xFFFFFF).forGetter(CompassType::needleColor),
-                    Codec.INT.optionalFieldOf("needle_shade_color", 0xFFFFFF).forGetter(CompassType::needleShadeColor)
+                    Codec.INT.optionalFieldOf("needle_shade_color", 0xFFFFFF).forGetter(CompassType::needleShadeColor),
+                    Identifier.CODEC.optionalFieldOf("model", Identifier.withDefaultNamespace("compass")).forGetter(CompassType::model)
             ).apply(instance, CompassType::new)
     );
 
@@ -46,6 +49,7 @@ public record CompassType(
         private List<CompassTarget> entries;
         private int needleColor = 0xFFFFFF;
         private int needleShadeColor = 0xFFFFFF;
+        private Identifier model = Identifier.withDefaultNamespace("compass");
 
         public CompassTypeBuilder entries(List<CompassTarget> entries) {
             this.entries = entries;
@@ -62,8 +66,13 @@ public record CompassType(
             return this;
         }
 
+        public CompassTypeBuilder model(Identifier model) {
+            this.model = model;
+            return this;
+        }
+
         public CompassType build() {
-            return new CompassType(entries, needleColor, needleShadeColor);
+            return new CompassType(entries, needleColor, needleShadeColor, model);
         }
     }
 

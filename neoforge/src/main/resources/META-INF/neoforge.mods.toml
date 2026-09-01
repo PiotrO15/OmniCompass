@@ -23,14 +23,7 @@ side = "BOTH"
 [[dependencies.omnicompass]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.1,)"
+versionRange = "${minecraft_version_range}"
 ordering = "NONE"
-side = "BOTH"
-
-[[dependencies.omnicompass]]
-modId = "architectury"
-type = "required"
-versionRange = "[13.0.8,)"
-ordering = "AFTER"
 side = "BOTH"
 

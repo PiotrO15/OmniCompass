@@ -4,7 +4,7 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import piotro15.omnicompass.common.registry.CompassTargetType;
 
 import java.util.List;
@@ -15,9 +15,9 @@ public class CompassScreen extends Screen {
     private EntrySelectionList list;
 
     public final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
-    public final ResourceLocation compassType;
+    public final Identifier compassType;
 
-    public CompassScreen(ResourceLocation compassType, List<CompassTargetType> unlocked) {
+    public CompassScreen(Identifier compassType, List<CompassTargetType> unlocked) {
         super(Component.translatable("gui.omnicompass.title"));
         this.unlocked = unlocked;
         this.compassType = compassType;

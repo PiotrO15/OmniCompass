@@ -14,12 +14,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "B": {
-      "item": "minecraft:brick"
-    },
-    "C": {
-      "item": "minecraft:compass"
-    }
+    "B": "minecraft:brick",
+    "C": "minecraft:compass"
   },
   "pattern": [
     " B ",

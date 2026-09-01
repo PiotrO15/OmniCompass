@@ -14,7 +14,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.conditions.ICondition;
-import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -24,7 +24,6 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import piotro15.omnicompass.OmniCompass;
 import net.neoforged.fml.common.Mod;
 import piotro15.omnicompass.common.items.compass.CompassType;
-import piotro15.omnicompass.common.items.compass.targets.AllOfTarget;
 import piotro15.omnicompass.common.items.compass.targets.SingleTarget;
 import piotro15.omnicompass.common.network.CompassSelectEntryPacket;
 import piotro15.omnicompass.common.network.CompassScreenPacket;
@@ -52,6 +51,9 @@ public final class OmniCompassNeoForge {
 
         CONDITION_CODECS.register(modEventBus);
 
+        NeoForgePlatform.ITEMS.register(modEventBus);
+        NeoForgePlatform.DATA_COMPONENTS.register(modEventBus);
+
         OmniCompass.init();
 
         container.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
@@ -65,7 +67,7 @@ public final class OmniCompassNeoForge {
         registrar.playToClient(
                 CompassScreenPacket.TYPE,
                 CompassScreenPacket.CODEC,
-                FMLEnvironment.dist.isClient()
+                FMLEnvironment.getDist().isClient()
                         ? NeoForgeClient::handleCompassScreenPacket
                         : (msg, ctx) -> {}
         );
@@ -77,8 +79,8 @@ public final class OmniCompassNeoForge {
                     ctx.enqueueWork(() -> {
                         ServerPlayer player = (ServerPlayer) ctx.player();
 
-                        Registry<CompassType> registry = player.level().registryAccess().registryOrThrow(ModRegistries.COMPASS_TYPE);
-                        CompassType compassType = registry.get(msg.compassType());
+                        Registry<CompassType> registry = player.level().registryAccess().lookupOrThrow(ModRegistries.COMPASS_TYPE);
+                        CompassType compassType = registry.getValue(msg.compassType());
 
                         if (compassType == null) {
                             return;
@@ -90,7 +92,7 @@ public final class OmniCompassNeoForge {
                                         entry.targetType().equals(msg.targetType())
                                 ).findFirst().orElseThrow();
 
-                        player.displayClientMessage(Component.translatable("omnicompass.compass.scanning"), true);
+                        player.sendOverlayMessage(Component.translatable("omnicompass.compass.scanning"));
 
                         singleTarget.find(player, msg.compassType(), msg.targetType(), msg.targetId());
                     });
@@ -112,13 +114,13 @@ public final class OmniCompassNeoForge {
 
         event.getParameters().holders().lookupOrThrow(ModRegistries.COMPASS_TYPE).listElementIds().forEach(compassTypeKey -> {
             ItemStack stack = new ItemStack(ModItems.COMPASS.get());
-            stack.set(ModDataComponents.COMPASS_TYPE.get(), compassTypeKey.location());
+            stack.set(ModDataComponents.COMPASS_TYPE.get(), compassTypeKey.identifier());
             event.accept(stack);
         });
     }
 
     @SubscribeEvent
-    private static void onReload(AddReloadListenerEvent event) {
+    private static void onReload(AddServerReloadListenersEvent event) {
         CompassType.invalidateCache();
     }
 }

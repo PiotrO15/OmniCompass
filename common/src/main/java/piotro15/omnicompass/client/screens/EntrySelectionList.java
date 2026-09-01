@@ -1,41 +1,32 @@
 package piotro15.omnicompass.client.screens;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractSelectionList;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.ObjectSelectionList;
-import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 import piotro15.omnicompass.common.network.CompassSelectEntryPacket;
 import piotro15.omnicompass.common.registry.CompassTargetType;
 import piotro15.omnicompass.util.Platform;
 
-public class EntrySelectionList extends AbstractSelectionList<EntrySelectionList.Entry> {
-    private final ResourceLocation compassType;
+public class EntrySelectionList extends ObjectSelectionList<EntrySelectionList.Entry> {
+    private final Identifier compassType;
 
-    public EntrySelectionList(Minecraft minecraft, int i, int j, int k, int l, ResourceLocation compassType) {
+    public EntrySelectionList(Minecraft minecraft, int i, int j, int k, int l, Identifier compassType) {
         super(minecraft, i, j, k, l);
         this.compassType = compassType;
     }
 
     @Override
-    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
-
-    }
-
-    @Override
-    protected void renderListBackground(GuiGraphics guiGraphics) {
-
+    public void clearEntries() {
+        super.clearEntries();
     }
 
     public void addEntry(CompassTargetType entry) {
         super.addEntry(new Entry(entry));
-    }
-
-    public void clearEntries() {
-        super.clearEntries();
     }
 
     public class Entry extends ObjectSelectionList.Entry<Entry> {
@@ -51,33 +42,33 @@ public class EntrySelectionList extends AbstractSelectionList<EntrySelectionList
         }
 
         @Override
-        public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
             Platform.getInstance().sendToServer(new CompassSelectEntryPacket(compassType, entry.type(), entry.id()));
             Minecraft.getInstance().setScreen(null);
             return true;
         }
 
         @Override
-        public void render(GuiGraphics guiGraphics, int i, int y, int x, int entryHeight, int m, int n, int o, boolean hovered, float f) {
+        public void extractContent(GuiGraphicsExtractor guiGraphics, int x, int y, boolean hovered, float v) {
             Minecraft mc = Minecraft.getInstance();
 
-            ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(
+            Identifier texture = Identifier.fromNamespaceAndPath(
                     entry.type().getNamespace(),
                     "textures/entry/" + entry.type().getPath() + ".png"
             );
 
             int textureX = EntrySelectionList.this.width / 2 + mc.font.width(entry.getTargetName()) / 2 + 4;
-            int textureY = (y + m / 2) - 6;
+            int textureY = getContentYMiddle() - 6;
 
-            guiGraphics.blit(texture, textureX, textureY, 0, 0, 10, 10, 10, 10);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED ,texture, textureX, textureY, 0, 0, 10, 10, 10, 10);
 
 
-            guiGraphics.drawCenteredString(
+            guiGraphics.centeredText(
                     mc.font,
                     entry.getTargetName(),
                     EntrySelectionList.this.width / 2,
-                    (y + m / 2) - 9 / 2,
-                    hovered ? 0xFFFFA0 : 0xFFFFFF
+                    getContentYMiddle() - 9 / 2,
+                    hovered ? 0xFFFFFFA0 : 0xFFFFFFFF
             );
         }
     }

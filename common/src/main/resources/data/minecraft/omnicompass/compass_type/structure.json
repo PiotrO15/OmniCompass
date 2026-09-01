@@ -17,6 +17,7 @@
       "entryType": "minecraft:worldgen/structure"
     }
   ],
+  "model": "omnicompass:structure_compass",
   "needle_color": 11184810,
   "needle_shade_color": 8338988
 }

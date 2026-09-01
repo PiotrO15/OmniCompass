@@ -8,18 +8,18 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public record CompassTargetType(ResourceLocation type, ResourceLocation id, boolean isTag) {
+public record CompassTargetType(Identifier type, Identifier id, boolean isTag) {
     public static final Codec<CompassTargetType> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ResourceLocation.CODEC.fieldOf("type").forGetter(CompassTargetType::type),
-            ResourceLocation.CODEC.fieldOf("id").forGetter(CompassTargetType::id),
+            Identifier.CODEC.fieldOf("type").forGetter(CompassTargetType::type),
+            Identifier.CODEC.fieldOf("id").forGetter(CompassTargetType::id),
             Codec.BOOL.fieldOf("tag").forGetter(CompassTargetType::isTag)
     ).apply(instance, CompassTargetType::new));
 
     public static final StreamCodec<ByteBuf, CompassTargetType> STREAM_CODEC = StreamCodec.composite(
-            ResourceLocation.STREAM_CODEC, CompassTargetType::type,
-            ResourceLocation.STREAM_CODEC, CompassTargetType::id,
+            Identifier.STREAM_CODEC, CompassTargetType::type,
+            Identifier.STREAM_CODEC, CompassTargetType::id,
             ByteBufCodecs.BOOL, CompassTargetType::isTag,
             CompassTargetType::new
     );

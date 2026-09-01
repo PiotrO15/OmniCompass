@@ -3,47 +3,61 @@ package piotro15.omnicompass.common.items.compass.targets;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import piotro15.omnicompass.OmniCompass;
 import piotro15.omnicompass.config.CommonConfig;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public record AllOfTarget(
-        ResourceLocation entryType
+        Identifier entryType
 ) implements MultiTarget {
-    public static final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(OmniCompass.MOD_ID, "all_of");
+    public static final Identifier id = Identifier.fromNamespaceAndPath(OmniCompass.MOD_ID, "all_of");
 
     public static final MapCodec<AllOfTarget> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
-                    ResourceLocation.CODEC.fieldOf("entryType").forGetter(AllOfTarget::entryType)
+                    Identifier.CODEC.fieldOf("entryType").forGetter(AllOfTarget::entryType)
             ).apply(instance, AllOfTarget::new)
     );
 
     @Override
-    public ResourceLocation targetType() {
+    public Identifier targetType() {
         return id;
     }
 
     @Override
-    public ResourceLocation entryId() {
+    public Identifier entryId() {
         return null;
     }
 
     @Override
     public List<SingleTarget> processTargets(ServerLevel level) {
-        if (entryType.equals(Registries.BIOME.location())) {
-            return level.registryAccess().registryOrThrow(Registries.BIOME).holders()
-                    .filter(biome -> !CommonConfig.INSTANCE.biomeBlacklist.get().contains(biome.key().location().toString()))
-                    .map(biome -> (SingleTarget) new BiomeTarget(HolderSet.direct(biome), List.of()))
-                    .toList();
-        } else if (entryType.equals(Registries.STRUCTURE.location())) {
-            return level.registryAccess().registryOrThrow(Registries.STRUCTURE).holders()
-                    .filter(structure -> !CommonConfig.INSTANCE.structureBlacklist.get().contains(structure.key().location().toString()))
-                    .map(structure -> (SingleTarget) new StructureTarget(HolderSet.direct(structure), List.of()))
-                    .toList();
+        if (entryType.equals(Registries.BIOME.identifier())) {
+            Registry<Biome> biomeRegistry = level.registryAccess().lookupOrThrow(Registries.BIOME);
+            List<SingleTarget> targets = new ArrayList<>();
+            biomeRegistry.asHolderIdMap().iterator().forEachRemaining(entry -> {
+                if (!CommonConfig.INSTANCE.biomeBlacklist.get().contains(entry.unwrapKey().get().identifier().toString())) {
+                    targets.add(new BiomeTarget(HolderSet.direct(entry), List.of()));
+                }
+            });
+
+            return targets;
+        } else if (entryType.equals(Registries.STRUCTURE.identifier())) {
+            Registry<Structure> structureRegistry =  level.registryAccess().lookupOrThrow(Registries.STRUCTURE);
+            List<SingleTarget> targets = new ArrayList<>();
+            structureRegistry.asHolderIdMap().iterator().forEachRemaining(entry -> {
+                if (!CommonConfig.INSTANCE.structureBlacklist.get().contains(entry.unwrapKey().get().identifier().toString())) {
+                    targets.add(new StructureTarget(HolderSet.direct(entry), List.of()));
+                }
+            });
+
+            return targets;
         }
         return List.of();
     }

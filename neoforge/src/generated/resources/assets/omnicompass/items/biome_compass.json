@@ -1,0 +1,546 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "omnicompass:item/biome_compass_base"
+      },
+      {
+        "type": "minecraft:range_dispatch",
+        "entries": [
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_00",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 0.0
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_01",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 0.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_02",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 1.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_03",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 2.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_04",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 3.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_05",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 4.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_06",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 5.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_07",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 6.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_08",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 7.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_09",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 8.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_10",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 9.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_11",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 10.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_12",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 11.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_13",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 12.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_14",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 13.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_15",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 14.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_16",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 15.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_17",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 16.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_18",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 17.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_19",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 18.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_20",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 19.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_21",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 20.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_22",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 21.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_23",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 22.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_24",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 23.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_25",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 24.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_26",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 25.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_27",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 26.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_28",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 27.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_29",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 28.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_30",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 29.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_31",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 30.5
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "omnicompass:compass/needle_00",
+              "tints": [
+                {
+                  "type": "omnicompass:needle",
+                  "shadow": true
+                },
+                {
+                  "type": "omnicompass:needle"
+                }
+              ]
+            },
+            "threshold": 31.5
+          }
+        ],
+        "property": "omnicompass:target_position",
+        "scale": 32.0
+      }
+    ]
+  }
+}

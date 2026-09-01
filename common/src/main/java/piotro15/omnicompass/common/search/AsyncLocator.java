@@ -28,10 +28,10 @@ public class AsyncLocator {
             return result != null ? result.getFirst() : null;
         }).thenAcceptAsync(foundPos -> {
             if (foundPos != null) {
-                player.displayClientMessage(Component.translatable("omnicompass.compass.found"), true);
+                player.sendOverlayMessage(Component.translatable("omnicompass.compass.found"));
                 CompassItem.setTarget(compassStack, structureTarget, level.dimension(), foundPos);
             } else {
-                player.displayClientMessage(Component.translatable("omnicompass.compass.not_found"), true);
+                player.sendOverlayMessage(Component.translatable("omnicompass.compass.not_found"));
             }
         }, level.getServer());
     }
@@ -51,10 +51,10 @@ public class AsyncLocator {
             return pair != null ? pair.getFirst() : null;
         }).thenAcceptAsync(foundPos -> {
             if (foundPos != null) {
-                player.displayClientMessage(Component.translatable("omnicompass.compass.found"), true);
+                player.sendOverlayMessage(Component.translatable("omnicompass.compass.found"));
                 CompassItem.setTarget(compassStack, targetBiome, level.dimension(), foundPos);
             } else {
-                player.displayClientMessage(Component.translatable("omnicompass.compass.not_found"), true);
+                player.sendOverlayMessage(Component.translatable("omnicompass.compass.not_found"));
             }
         }, level.getServer());
     }

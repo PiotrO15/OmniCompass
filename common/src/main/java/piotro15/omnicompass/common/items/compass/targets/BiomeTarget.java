@@ -7,7 +7,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -29,7 +29,7 @@ public record BiomeTarget(
     HolderSet<Biome> name,
     List<CompassTargetCondition> conditions
 ) implements SingleTarget {
-    public static final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(OmniCompass.MOD_ID, "biome");
+    public static final Identifier id = Identifier.fromNamespaceAndPath(OmniCompass.MOD_ID, "biome");
 
     public static final MapCodec<BiomeTarget> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
@@ -39,15 +39,15 @@ public record BiomeTarget(
     );
 
     @Override
-    public ResourceLocation targetType() {
+    public Identifier targetType() {
         return id;
     }
 
     @Override
-    public ResourceLocation entryId() {
+    public Identifier entryId() {
         return name.unwrap().map(
                 TagKey::location,
-                list -> list.getFirst().unwrapKey().orElseThrow().location()
+                list -> list.getFirst().unwrapKey().orElseThrow().identifier()
         );
     }
 
@@ -55,20 +55,25 @@ public record BiomeTarget(
     public Component displayName() {
         return name.unwrap().map(
                 tag -> Component.translatable("tag.biome." + tag.location().toLanguageKey()),
-                list -> Component.translatable("biome." + list.getFirst().unwrapKey().orElseThrow().location().toLanguageKey())
+                list -> Component.translatable("biome." + list.getFirst().unwrapKey().orElseThrow().identifier().toLanguageKey())
         );
     }
 
     @Override
-    public void find(Player player, ResourceLocation compassId, ResourceLocation entryType, ResourceLocation entryId) {
+    public void find(Player player, Identifier compassId, Identifier entryType, Identifier entryId) {
         ItemStack stack = player.getItemInHand(player.getUsedItemHand());
 
         if (!(stack.getItem() instanceof CompassItem)) {
             return;
         }
 
-        Registry<CompassType> registry = player.level().registryAccess().registryOrThrow(ModRegistries.COMPASS_TYPE);
-        CompassType compassType = registry.get(compassId);
+        Registry<CompassType> compassTypeRegistry = player.level().registryAccess().lookupOrThrow(ModRegistries.COMPASS_TYPE);
+
+        if (compassTypeRegistry.get(compassId).isEmpty()) {
+            return;
+        }
+
+        CompassType compassType = compassTypeRegistry.get(compassId).get().value();
 
         if (compassType == null) {
             return;

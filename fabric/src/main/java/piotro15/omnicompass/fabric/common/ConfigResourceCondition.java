@@ -5,8 +5,8 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
-import net.minecraft.core.HolderLookup;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.resources.RegistryOps;
+import org.jspecify.annotations.NonNull;
 import piotro15.omnicompass.config.CommonConfig;
 import piotro15.omnicompass.fabric.OmniCompassFabric;
 
@@ -18,12 +18,12 @@ public record ConfigResourceCondition(String key) implements ResourceCondition {
     );
 
     @Override
-    public ResourceConditionType<?> getType() {
+    public @NonNull ResourceConditionType<?> getType() {
         return OmniCompassFabric.CONFIG_RESOURCE_CONDITION;
     }
 
     @Override
-    public boolean test(HolderLookup.@Nullable Provider provider) {
+    public boolean test(RegistryOps.RegistryInfoLookup registryInfo) {
         return switch (key) {
             case "enable_biome_compass" -> CommonConfig.INSTANCE.enableBiomeCompass.get();
             case "enable_structure_compass" -> CommonConfig.INSTANCE.enableStructureCompass.get();

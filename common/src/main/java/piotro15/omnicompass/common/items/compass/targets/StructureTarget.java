@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -27,7 +27,7 @@ public record StructureTarget(
         HolderSet<Structure> name,
         List<CompassTargetCondition> conditions
 ) implements SingleTarget {
-    public static final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(OmniCompass.MOD_ID, "structure");
+    public static final Identifier id = Identifier.fromNamespaceAndPath(OmniCompass.MOD_ID, "structure");
 
     public static final MapCodec<StructureTarget> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
@@ -37,15 +37,15 @@ public record StructureTarget(
     );
 
     @Override
-    public ResourceLocation targetType() {
+    public Identifier targetType() {
         return id;
     }
 
     @Override
-    public ResourceLocation entryId() {
+    public Identifier entryId() {
         return name.unwrap().map(
                 TagKey::location,
-                list -> list.getFirst().unwrapKey().orElseThrow().location()
+                list -> list.getFirst().unwrapKey().orElseThrow().identifier()
         );
     }
 
@@ -53,24 +53,25 @@ public record StructureTarget(
     public Component displayName() {
         return name.unwrap().map(
                 tag -> Component.translatable("tag.structure." + tag.location().toLanguageKey()),
-                list -> Component.translatable("structure." + list.getFirst().unwrapKey().orElseThrow().location().toLanguageKey())
+                list -> Component.translatable("structure." + list.getFirst().unwrapKey().orElseThrow().identifier().toLanguageKey())
         );
     }
 
     @Override
-    public void find(Player player, ResourceLocation compassId, ResourceLocation entryType, ResourceLocation entryId) {
+    public void find(Player player, Identifier compassId, Identifier entryType, Identifier entryId) {
         ItemStack stack = player.getItemInHand(player.getUsedItemHand());
 
         if (!(stack.getItem() instanceof CompassItem)) {
             return;
         }
 
-        Registry<CompassType> compassTypeRegistry = player.level().registryAccess().registryOrThrow(ModRegistries.COMPASS_TYPE);
-        CompassType compassType = compassTypeRegistry.get(compassId);
+        Registry<CompassType> compassTypeRegistry = player.level().registryAccess().lookupOrThrow(ModRegistries.COMPASS_TYPE);
 
-        if (compassType == null) {
+        if (compassTypeRegistry.get(compassId).isEmpty()) {
             return;
         }
+
+        CompassType compassType = compassTypeRegistry.get(compassId).get().value();
 
         Level level = player.level();
 

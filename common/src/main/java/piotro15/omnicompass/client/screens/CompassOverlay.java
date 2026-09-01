@@ -2,8 +2,7 @@ package piotro15.omnicompass.client.screens;
 
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -19,13 +18,12 @@ import piotro15.omnicompass.config.CommonConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompassOverlay implements LayeredDraw.Layer {
+public class CompassOverlay {
     private static final int PADDING = 10;
     private static final int LINE_HEIGHT = 10;
-    private static final int COLOR = 0xFFFFFF;
+    private static final int COLOR = 0xFFFFFFFF;
 
-    @Override
-    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+    public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
         Level level = Minecraft.getInstance().level;
         if (level == null) return;
         Player player = Minecraft.getInstance().player;
@@ -52,7 +50,7 @@ public class CompassOverlay implements LayeredDraw.Layer {
         }
     }
 
-    private void renderBar(GuiGraphics guiGraphics, CompassTargetType targetType, GlobalPos target, int distance, boolean showPosition) {
+    private void renderBar(GuiGraphicsExtractor guiGraphics, CompassTargetType targetType, GlobalPos target, int distance, boolean showPosition) {
         MutableComponent line = targetType.getTargetType()
                 .append(": ")
                 .append(targetType.getTargetName())
@@ -68,7 +66,7 @@ public class CompassOverlay implements LayeredDraw.Layer {
         int x = screenWidth / 2;
         int y = screenHeight - 85;
 
-        guiGraphics.drawCenteredString(Minecraft.getInstance().font, line, x, y, COLOR);
+        guiGraphics.centeredText(Minecraft.getInstance().font, line, x, y, COLOR);
     }
 
     private void renderActionBar(Player player, CompassTargetType targetType, GlobalPos target, int distance, boolean showPosition) {
@@ -82,10 +80,10 @@ public class CompassOverlay implements LayeredDraw.Layer {
             line = line.append(" (").append(target.pos().toShortString()).append(")");
         }
 
-        player.displayClientMessage(line, true);
+        player.sendOverlayMessage(line);
     }
 
-    private void renderColumn(GuiGraphics guiGraphics, CompassTargetType targetType, GlobalPos target, int distance, boolean showPosition) {
+    private void renderColumn(GuiGraphicsExtractor guiGraphics, CompassTargetType targetType, GlobalPos target, int distance, boolean showPosition) {
         List<Component> lines = new ArrayList<>();
         lines.add(targetType.getTargetType());
         lines.add(targetType.getTargetName());
@@ -117,7 +115,7 @@ public class CompassOverlay implements LayeredDraw.Layer {
                 case RIGHT -> screenWidth - PADDING - Minecraft.getInstance().font.width(line);
             };
 
-            guiGraphics.drawString(Minecraft.getInstance().font, line, x, y, COLOR);
+            guiGraphics.text(Minecraft.getInstance().font, line, x, y, COLOR);
             y += LINE_HEIGHT + (++lineNumber % 2 == 0 ? LINE_HEIGHT : 0);
         }
     }

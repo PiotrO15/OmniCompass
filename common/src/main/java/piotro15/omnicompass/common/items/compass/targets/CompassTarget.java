@@ -1,8 +1,8 @@
 package piotro15.omnicompass.common.items.compass.targets;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public interface CompassTarget {
-    ResourceLocation targetType();
-    ResourceLocation entryId();
+    Identifier targetType();
+    Identifier entryId();
 }

@@ -1,38 +1,42 @@
 package piotro15.omnicompass.common.registry;
 
-import dev.architectury.registry.registries.DeferredRegister;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import piotro15.omnicompass.OmniCompass;
+import piotro15.omnicompass.util.Platform;
 
 import java.util.function.Supplier;
 
 public class ModDataComponents {
-    public static final DeferredRegister<DataComponentType<?>> REGISTRAR = DeferredRegister.create(OmniCompass.MOD_ID, Registries.DATA_COMPONENT_TYPE);
-    public static final Supplier<DataComponentType<ResourceLocation>> COMPASS_TYPE = REGISTRAR.register(
-            "compass_type",
-            () -> DataComponentType.<ResourceLocation>builder()
-                    .persistent(ResourceLocation.CODEC)
-                    .networkSynchronized(ResourceLocation.STREAM_CODEC)
-                    .cacheEncoding()
-                    .build()
-    );
-    public static final Supplier<DataComponentType<CompassTargetType>> TARGET_TYPE = REGISTRAR.register(
-            "target_type",
-            () -> DataComponentType.<CompassTargetType>builder()
-                    .persistent(CompassTargetType.CODEC)
-                    .networkSynchronized(CompassTargetType.STREAM_CODEC)
-                    .build()
-    );
-    public static final Supplier<DataComponentType<GlobalPos>> TARGET_POSITION = REGISTRAR.register(
-            "target_position",
-            () -> DataComponentType.<GlobalPos>builder()
-                    .persistent(GlobalPos.CODEC)
-                    .networkSynchronized(GlobalPos.STREAM_CODEC)
-                    .build()
-    );
+    public static Supplier<DataComponentType<Identifier>> COMPASS_TYPE;
+    public static Supplier<DataComponentType<CompassTargetType>> TARGET_TYPE;
+    public static Supplier<DataComponentType<GlobalPos>> TARGET_POSITION;
 
-    public static void load() {}
+    public static void load() {
+        COMPASS_TYPE = Platform.getInstance().registerDataComponentType(
+                OmniCompass.id("compass_type"),
+                () -> DataComponentType.<Identifier>builder()
+                        .persistent(Identifier.CODEC)
+                        .networkSynchronized(Identifier.STREAM_CODEC)
+                        .cacheEncoding()
+                        .build()
+        );
+
+        TARGET_TYPE = Platform.getInstance().registerDataComponentType(
+                OmniCompass.id("target_type"),
+                () -> DataComponentType.<CompassTargetType>builder()
+                        .persistent(CompassTargetType.CODEC)
+                        .networkSynchronized(CompassTargetType.STREAM_CODEC)
+                        .build()
+        );
+
+        TARGET_POSITION = Platform.getInstance().registerDataComponentType(
+                OmniCompass.id("target_position"),
+                () -> DataComponentType.<GlobalPos>builder()
+                        .persistent(GlobalPos.CODEC)
+                        .networkSynchronized(GlobalPos.STREAM_CODEC)
+                        .build()
+        );
+    }
 }
