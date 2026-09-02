@@ -12,7 +12,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_00",
+              "model": "omnicompass:compass/needle_16",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -28,7 +28,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_01",
+              "model": "omnicompass:compass/needle_17",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -44,7 +44,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_02",
+              "model": "omnicompass:compass/needle_18",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -60,7 +60,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_03",
+              "model": "omnicompass:compass/needle_19",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -76,7 +76,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_04",
+              "model": "omnicompass:compass/needle_20",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -92,7 +92,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_05",
+              "model": "omnicompass:compass/needle_21",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -108,7 +108,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_06",
+              "model": "omnicompass:compass/needle_22",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -124,7 +124,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_07",
+              "model": "omnicompass:compass/needle_23",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -140,7 +140,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_08",
+              "model": "omnicompass:compass/needle_24",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -156,7 +156,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_09",
+              "model": "omnicompass:compass/needle_25",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -172,7 +172,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_10",
+              "model": "omnicompass:compass/needle_26",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -188,7 +188,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_11",
+              "model": "omnicompass:compass/needle_27",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -204,7 +204,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_12",
+              "model": "omnicompass:compass/needle_28",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -220,7 +220,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_13",
+              "model": "omnicompass:compass/needle_29",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -236,7 +236,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_14",
+              "model": "omnicompass:compass/needle_30",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -252,7 +252,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_15",
+              "model": "omnicompass:compass/needle_31",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -268,7 +268,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_16",
+              "model": "omnicompass:compass/needle_00",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -284,7 +284,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_17",
+              "model": "omnicompass:compass/needle_01",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -300,7 +300,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_18",
+              "model": "omnicompass:compass/needle_02",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -316,7 +316,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_19",
+              "model": "omnicompass:compass/needle_03",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -332,7 +332,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_20",
+              "model": "omnicompass:compass/needle_04",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -348,7 +348,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_21",
+              "model": "omnicompass:compass/needle_05",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -364,7 +364,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_22",
+              "model": "omnicompass:compass/needle_06",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -380,7 +380,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_23",
+              "model": "omnicompass:compass/needle_07",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -396,7 +396,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_24",
+              "model": "omnicompass:compass/needle_08",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -412,7 +412,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_25",
+              "model": "omnicompass:compass/needle_09",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -428,7 +428,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_26",
+              "model": "omnicompass:compass/needle_10",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -444,7 +444,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_27",
+              "model": "omnicompass:compass/needle_11",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -460,7 +460,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_28",
+              "model": "omnicompass:compass/needle_12",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -476,7 +476,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_29",
+              "model": "omnicompass:compass/needle_13",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -492,7 +492,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_30",
+              "model": "omnicompass:compass/needle_14",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -508,7 +508,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_31",
+              "model": "omnicompass:compass/needle_15",
               "tints": [
                 {
                   "type": "omnicompass:needle",
@@ -524,7 +524,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "omnicompass:compass/needle_00",
+              "model": "omnicompass:compass/needle_16",
               "tints": [
                 {
                   "type": "omnicompass:needle",

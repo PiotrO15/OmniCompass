@@ -1,7 +1,7 @@
-// 26.1.2	2026-09-01T14:43:48.0621206	Model Definitions - omnicompass
-672fe13df5de768fb52f17a34feb5ef3ba677dba assets/omnicompass/items/biome_compass.json
-a42140cdd53a2ca1c3476929d84f8f9d55aa6fc3 assets/omnicompass/items/compass.json
-729f242dee53bfe9936e0c6fc5b67f6f1f16a3b9 assets/omnicompass/items/structure_compass.json
+// 26.1.2	2026-09-02T21:31:08.9671485	Model Definitions - omnicompass
+9e107f2cb945006f75666d0d8b041fd052f44949 assets/omnicompass/items/biome_compass.json
+fe44e0995b1a33ed986459d24007a55c72b617fb assets/omnicompass/items/compass.json
+2e5f52f4cd579f710ef08869cd65540590893593 assets/omnicompass/items/structure_compass.json
 4b0c1db61eac73395e031d2447e655f8045838b4 assets/omnicompass/models/compass/needle_00.json
 b46bbaed33588c22616d25da6fa88dda9d0396c3 assets/omnicompass/models/compass/needle_01.json
 31c568927b6917e891b23e221674a213fc8b5ceb assets/omnicompass/models/compass/needle_02.json
