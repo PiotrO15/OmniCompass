@@ -58,17 +58,20 @@ If you just wish to allow the players to search for any biome or structure, you 
 
 By default, only `minecraft:worldgen/biome` and `minecraft:worldgen/structure` can be used as the `entryType`.
 
+## Model
+
+The `model` field specifies the model the compass uses. If not set, the vanilla compass model will be used.
+
 ## Needle Colors
 
-The `needle_color` and `needle_shade_color` fields are used to apply a color overlay to the the needle and its shadow. If not set, there is no color applied.
+The `needle_color` and `needle_shade_color` fields are used to apply a color tint to the the needle and its shadow. If not set, there is no tint applied. This only works with models that use needle tinting, similar to biome or structure compass.
 
-`needle_shade_color` applies the tint to `layer1` of the texture, while `needle__color` applies it to `layer2`.
-
-Keep in mind that it only accepts colors in **decimal** format, which means you will need to convert a number from hexadecimal to decimal, eg. `#FF0000` to `16711680`.
+> [!IMPORTANT]
+> These fields only accept colors in the **decimal** format, which means you will need to convert a number from hexadecimal to decimal, e.g. #FF0000 to 16711680.
 
 ## Full Example
 
-The following example creates a compass that can be used to search for any biome. Additionally, if the player has the advancement Bullseye, they can also search for a Shipwreck structure. The needle and its shadow are colored too.
+The following example creates a compass that can be used to search for any biome. Additionally, if the player has the advancement Bullseye, they can also search for a Shipwreck structure. It uses biome compass' model and needle colors.
 ```json
 {
   "entries": [
@@ -87,7 +90,8 @@ The following example creates a compass that can be used to search for any biome
       ]
     }
   ],
-  "needle_color": 11184810,
-  "needle_shade_color": 8338988
+  "model": "omnicompass:biome_compass",
+  "needle_color": 12754274,
+  "needle_shade_color": 9860161
 }
 ```
