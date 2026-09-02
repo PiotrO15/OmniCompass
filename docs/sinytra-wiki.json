@@ -1,7 +1,11 @@
 {
+    "schema": "1",
     "id": "omnicompass",
     "platforms": {
         "curseforge": "omnicompass",
         "modrinth": "omnicompass"
+    },
+    "versions": {
+        "1.21.1": "1.21.1"
     }
 }
